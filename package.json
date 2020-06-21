@@ -1,0 +1,26 @@
+{
+  "name": "cinematt",
+  "version": "1.0.0",
+  "description": "Personal photography website rebuilt using NextJS",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": "git@github.com:matfin/cinematt-nextjs.git",
+  "author": "Matthew Finucane <matfin@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "@types/react": "^16.9.38",
+    "@types/react-dom": "^16.9.8",
+    "next": "^9.4.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "typescript": "^3.9.5"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.13"
+  }
+}
