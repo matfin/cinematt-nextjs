@@ -1,12 +1,12 @@
 import React from 'react';
 import Layout from '../components/layout/layout';
 
-const Index = (): JSX.Element => (
+const About = (): JSX.Element => (
   <Layout>
     <h1>
-      Main
+      This is the About page!
     </h1>
   </Layout>
 );
 
-export default Index;
+export default About;
