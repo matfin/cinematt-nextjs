@@ -1,10 +1,6 @@
+import { promises as fs } from 'fs';
 import config from '../config';
-
-interface Param {
-  params: {
-    id: string;
-  }
-}
+import { Param, Photo } from '../interfaces';
 
 export const getAlbumIds = (): Param[] => {
   const { albums } = config;
@@ -18,9 +14,15 @@ export const getAlbumIds = (): Param[] => {
   ));
 };
 
-export const getAlbumData = (id: string): any => {
-  return {
-    id,
-    coming: 'Soon!'
-  };
+export const getPhotos = async(id: string): Promise<any> => {
+  const filePath = `./assets/photos/${id}.json`;
+
+  try {
+    const content = await fs.readFile(filePath, 'utf-8');
+    const photos = JSON.parse(content);
+
+    return photos.map(({ public_id, version }): Photo => ({ publicId: public_id, version }));
+  } catch (e) {
+    return [];
+  }
 };

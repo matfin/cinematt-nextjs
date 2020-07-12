@@ -1,17 +1,19 @@
 import React from 'react';
+import { Photo } from '../../interfaces';
 import Layout from '../../components/layout/layout';
-import { getAlbumIds, getAlbumData } from '../../lib/albums';
+import Picture from '../../components/picture/picture';
+import { getAlbumIds, getPhotos } from '../../lib/albums';
 
 interface Props {
-  id: string;
+  photos: Photo[];
 }
 
-const Album = ({ id }: Props): JSX.Element => {
+const Album = ({ photos }: Props): JSX.Element => {
   return (
     <Layout>
-      <h1>
-        I am an album named {id}.
-      </h1>
+      {photos.map(({ publicId, version }: Photo) =>
+        <Picture key={`${publicId}-${version}`} publicId={publicId} version={version} />
+      )}
     </Layout>
   );
 };
@@ -24,10 +26,12 @@ export async function getStaticPaths(): Promise<any> {
 
 export async function getStaticProps({ params }): Promise<any> {
   const { id } = params;
-  const albumData: any = getAlbumData(id);
+  const photos: Photo[] = await getPhotos(id);
 
   return {
-    props: albumData
+    props: {
+      photos
+    }
   };
 }
 
