@@ -23,6 +23,7 @@ export const LayoutHeader = styled(Header)`
   left: 0;
   width: 100vw;
   height: 5rem;
+  background: ${colours.secondary};
 `;
 
 export const Main = styled.main`

@@ -33,9 +33,12 @@ const Navigation = ({
 }: Props): JSX.Element => (
   <Nav className={className}>
     <NavItemList>
+      <Link href="/">
+        <a onClick={onNavigate}>Featured</a>
+      </Link>
       {AlbumLinks(onNavigate)}
-      <Link href={`/about`}>
-        <a>About</a>
+      <Link href="/about">
+        <a onClick={onNavigate}>About</a>
       </Link>
     </NavItemList>
   </Nav>
