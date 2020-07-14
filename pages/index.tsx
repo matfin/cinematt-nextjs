@@ -1,12 +1,27 @@
 import React from 'react';
+import { Photo } from '../interfaces';
+import Gallery from '../components/gallery/gallery';
 import Layout from '../components/layout/layout';
+import { getPhotos } from '../lib/albums';
 
-const Index = (): JSX.Element => (
+interface Props {
+  photos: Photo[];
+}
+
+const Index = ({ photos }: Props): JSX.Element => (
   <Layout>
-    <h1>
-      Main
-    </h1>
+    <Gallery photos={photos} />
   </Layout>
 );
+
+export async function getStaticProps(): Promise<any> {
+  const photos: Photo[] = await getPhotos('featured');
+
+  return {
+    props: {
+      photos
+    }
+  };
+};
 
 export default Index;

@@ -23,7 +23,7 @@ const Layout = ({ children }: Props): JSX.Element => {
   };
   const dismissNav = (): void => {
     setNavRevealed(false);
-    setBodyOverflow(false);
+    setBodyOverflow(true);
   };
 
   return (

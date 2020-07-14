@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs';
 import config from '../config';
 import { Param, Photo } from '../interfaces';
+import { Orientation } from '../types';
 
 export const getAlbumIds = (): Param[] => {
   const { albums } = config;
@@ -21,7 +22,14 @@ export const getPhotos = async(id: string): Promise<any> => {
     const content = await fs.readFile(filePath, 'utf-8');
     const photos = JSON.parse(content);
 
-    return photos.map(({ public_id, version }): Photo => ({ publicId: public_id, version }));
+    return photos.map((photo: Photo) => {
+      const { width, height } = photo;
+
+      return {
+        ...photo,
+        orientation: width > height ? Orientation.Landscape : Orientation.Portrait,
+      };
+    });
   } catch (e) {
     return [];
   }

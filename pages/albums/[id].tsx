@@ -1,7 +1,7 @@
 import React from 'react';
 import { Photo } from '../../interfaces';
+import Gallery from '../../components/gallery/gallery';
 import Layout from '../../components/layout/layout';
-import Picture from '../../components/picture/picture';
 import { getAlbumIds, getPhotos } from '../../lib/albums';
 
 interface Props {
@@ -11,9 +11,7 @@ interface Props {
 const Album = ({ photos }: Props): JSX.Element => {
   return (
     <Layout>
-      {photos.map(({ publicId, version }: Photo) =>
-        <Picture key={`${publicId}-${version}`} publicId={publicId} version={version} />
-      )}
+      <Gallery photos={photos} />
     </Layout>
   );
 };
@@ -27,7 +25,6 @@ export async function getStaticPaths(): Promise<any> {
 export async function getStaticProps({ params }): Promise<any> {
   const { id } = params;
   const photos: Photo[] = await getPhotos(id);
-
   return {
     props: {
       photos

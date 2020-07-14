@@ -1,22 +1,4 @@
-type Breakpoints = {
-  sm: number;
-  md: number;
-  lg: number;
-  xl: number;
-  xxl: number;
-};
-
-type Colours = {
-  primary: string;
-  secondary: string;
-};
-
-type Layers = {
-  base: number;
-  over: number;
-  top: number;
-  under: number;
-}
+import { Breakpoints, Colours, Layers } from '../types';
 
 export const defaultFont = 'Gill Sans,Gill Sans MT,Calibri,sans-serif';
 

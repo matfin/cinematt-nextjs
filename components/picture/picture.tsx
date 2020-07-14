@@ -1,5 +1,6 @@
 import React from 'react';
 import { Photo, PictureSourceSize } from '../../interfaces';
+import { Image, PictureContainer } from './picture.css';
 
 interface Props extends Photo {
   className?: string;
@@ -34,29 +35,45 @@ const sourceMediaQueries: PictureSourceSize[] = [
     minWidth: 480,
     sizes: [480, 960, 1440]
   },
+  {
+    minWidth: 320,
+    sizes: [320, 640, 960]
+  },
 ];
 
-const resourceBaseUrl = 'https://res.cloudinary.com/matt-finucane-portfolio/image/upload/';
+const resourceBaseUrl = 'https://res.cloudinary.com/matt-finucane-portfolio/image/upload';
 
-const pictureSources = ({ publicId, version }: Photo): JSX.Element[] => (
-  sourceMediaQueries.map(({ minWidth, sizes }: PictureSourceSize): any => (
-    <source
-      key={`${version}-${minWidth}`}
-      media={`(min-width: ${minWidth}px`}
-      srcSet={sizes.map((size: number, index: number): string => `${resourceBaseUrl}w_${size}/v${version}/${publicId}.jpg ${index}x`).join(',')}
-    />
-  ))
-);
+const pictureSources = ({ publicId, version }): JSX.Element[] => {
+  return (
+    sourceMediaQueries.map(({ minWidth, sizes }: PictureSourceSize): any => (
+      <source
+        key={`${version}-${minWidth}`}
+        media={`(min-width: ${minWidth}px)`}
+        srcSet={sizes.map((size: number, index: number): string => `
+          ${resourceBaseUrl}/w_${size}/v${version}/${publicId}.jpg ${index + 1}x
+        `).join(',')}
+      />
+    ))
+  );
+};
 
 const Picture = ({
   className,
+  height,
+  orientation,
   publicId,
   version,
+  width,
 }: Props): JSX.Element => (
-  <picture className={className}>
+  <PictureContainer className={className} orientation={orientation}>
     {pictureSources({ publicId, version })}
-    <img src={`${resourceBaseUrl}/w_1280/v${version}/${publicId}.jpg`} />
-  </picture>
+    <Image
+      calcHeight={height}
+      calcWidth={width}
+      orientation={orientation}
+      src={`${resourceBaseUrl}/w_1280/v${version}/${publicId}.jpg`}
+    />
+  </PictureContainer>
 );
 
 export default Picture;
