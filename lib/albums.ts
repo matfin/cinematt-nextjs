@@ -1,11 +1,9 @@
 import { promises as fs } from 'fs';
-import config from '../config';
+import { albums } from '../config';
 import { Param, Photo } from '../interfaces';
 import { Orientation } from '../types';
 
 export const getAlbumIds = (): Param[] => {
-  const { albums } = config;
-
   return albums.map((id: string): Param => (
     {
       params: {

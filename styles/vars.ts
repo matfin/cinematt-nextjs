@@ -13,6 +13,7 @@ export const breakpoints: Breakpoints = {
 export const colours: Colours = {
   primary: '#000',
   secondary: '#fff',
+  tertiary: '#ccc',
 };
 
 export const layers: Layers = {

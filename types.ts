@@ -9,6 +9,7 @@ export type Breakpoints = {
 export type Colours = {
   primary: string;
   secondary: string;
+  tertiary: string;
 }
 
 export type Layers = {
