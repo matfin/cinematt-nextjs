@@ -17,13 +17,17 @@ export const PictureContainer = styled.picture<PictureProps>`
   border: 1px solid ${colours.tertiary};
   transition: border 350ms ${animationCurve};
 
-  ${({ hasLoaded }) => hasLoaded && css`
-    border: 1px solid ${colours.secondary};
-  `}
+  ${({ hasLoaded }) =>
+    hasLoaded &&
+    css`
+      border: 1px solid ${colours.secondary};
+    `}
 
-  ${({ orientation }: PictureProps) => orientation === Orientation.Portrait && css`
-    grid-row-end: span 2;
-  `}
+  ${({ orientation }: PictureProps) =>
+    orientation === Orientation.Portrait &&
+    css`
+      grid-row-end: span 2;
+    `}
 `;
 
 export const Image = styled.img<ImageProps>`
@@ -34,9 +38,11 @@ export const Image = styled.img<ImageProps>`
   opacity: 0;
   transition: opacity 350ms ${animationCurve};
 
-  ${({ hasLoaded }) => hasLoaded && css`
-    opacity: 1.0;
-  `};
+  ${({ hasLoaded }) =>
+    hasLoaded &&
+    css`
+      opacity: 1;
+    `};
 `;
 
 export const LoadingStrip = styled(Loading)`
@@ -44,4 +50,4 @@ export const LoadingStrip = styled(Loading)`
   bottom: 0;
   left: 0;
   width: 100%;
-`
+`;

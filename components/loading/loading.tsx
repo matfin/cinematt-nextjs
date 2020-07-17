@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { colours } from '../../styles';
+import React from 'react';
 import { Container, Direction, Square } from './loading.css';
 
 interface Props {
   className?: string;
-  strips?: number;
 }
 
-const Loading = ({ className, strips = 15 }: Props): JSX.Element => (
+const Loading = ({ className }: Props): JSX.Element => (
   <Container className={className}>
     <Square direction={Direction.UP} />
     <Square direction={Direction.DOWN} />

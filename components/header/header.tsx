@@ -1,29 +1,16 @@
 import React from 'react';
-import {
-  Button,
-  Container,
-  Title,
-} from './header.css';
+import { Button, Container, Title } from './header.css';
 
-interface Props {
+export interface Props {
   className?: string;
-  navRevealed: boolean,
-  onMenuButtonClick(e: React.MouseEvent | React.TouchEvent): void;
+  navRevealed: boolean;
+  onMenuButtonClick: (e: React.MouseEvent | React.TouchEvent) => void;
 }
 
-const Header = ({
-  className,
-  navRevealed,
-  onMenuButtonClick,
-}: Props): JSX.Element => (
+const Header = ({ className, navRevealed, onMenuButtonClick }: Props): JSX.Element => (
   <Container className={className}>
-    <Title>
-      Cinematt
-    </Title>
-    <Button
-      isOpen={navRevealed}
-      onClick={onMenuButtonClick}
-    />
+    <Title>Cinematt</Title>
+    <Button isOpen={navRevealed} onClick={onMenuButtonClick} />
   </Container>
 );
 

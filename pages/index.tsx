@@ -1,5 +1,5 @@
 import React from 'react';
-import { Photo } from '../interfaces';
+import { Photo, StaticAlbumProps } from '../interfaces';
 import Gallery from '../components/gallery/gallery';
 import Layout from '../components/layout/layout';
 import { getPhotos } from '../lib/albums';
@@ -14,14 +14,14 @@ const Index = ({ photos }: Props): JSX.Element => (
   </Layout>
 );
 
-export async function getStaticProps(): Promise<any> {
+export async function getStaticProps(): Promise<StaticAlbumProps> {
   const photos: Photo[] = await getPhotos('featured');
 
   return {
     props: {
-      photos
-    }
+      photos,
+    },
   };
-};
+}
 
 export default Index;

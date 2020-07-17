@@ -5,7 +5,13 @@ import { resourceBaseUrl, sourceMediaQueries } from '../../config';
 import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 import { Image, LoadingStrip, PictureContainer } from './picture.css';
 
-interface Props {
+interface PictureSizeProps {
+  publicId: string;
+  shouldLoad: boolean;
+  version: string;
+}
+
+export interface Props {
   className?: string;
   lazyLoad?: boolean;
   orientation: Orientation;
@@ -13,7 +19,7 @@ interface Props {
   version: string;
 }
 
-const pictureSizePaths = (
+export const pictureSizePaths = (
   ext: string,
   index: number,
   publicId: string,
@@ -24,46 +30,37 @@ const pictureSizePaths = (
   return `${resourceBaseUrl}/w_${size}/v${version}/${publicId}.${ext} ${dpr}`;
 };
 
-const pictureSources = ({ shouldLoad, publicId, version }): JSX.Element[] => (
-  sourceMediaQueries.map(({ minWidth, sizes }: PictureSourceSize): JSX.Element => {
-    const srcSetWebP: string = sizes.map((size: number, index: number) =>
-      pictureSizePaths('webp', index, publicId, size, version)
-    ).join(',');
-    const srcSetJpg: string = sizes.map((size: number, index: number) =>
-      pictureSizePaths('jpg', index, publicId, size, version)
-    ).join(',');
+export const pictureSources = ({ shouldLoad, publicId, version }: PictureSizeProps): JSX.Element[] =>
+  sourceMediaQueries.map(
+    ({ minWidth, sizes }: PictureSourceSize): JSX.Element => {
+      const srcSetWebP: string = sizes
+        .map((size: number, index: number) => pictureSizePaths('webp', index, publicId, size, version))
+        .join(',');
+      const srcSetJpg: string = sizes
+        .map((size: number, index: number) => pictureSizePaths('jpg', index, publicId, size, version))
+        .join(',');
 
-    return (
-      <Fragment key={`${publicId}-${version}-${minWidth}`}>
-        <source
-          media={`(min-width: ${minWidth}px)`}
-          srcSet={shouldLoad ? srcSetWebP : null}
-          type="image/webp"
-        />
-        <source
-          media={`(min-width: ${minWidth}px)`}
-          srcSet={shouldLoad ? srcSetJpg : null}
-          type="image/jpeg"
-        />
-      </Fragment>
-    );
-  })
-);
+      return (
+        <Fragment key={`${publicId}-${version}-${minWidth}`}>
+          <source media={`(min-width: ${minWidth}px)`} srcSet={shouldLoad ? srcSetWebP : null} type="image/webp" />
+          <source media={`(min-width: ${minWidth}px)`} srcSet={shouldLoad ? srcSetJpg : null} type="image/jpeg" />
+        </Fragment>
+      );
+    },
+  );
 
-const Picture = ({
-  className,
-  lazyLoad = false,
-  orientation,
-  publicId,
-  version,
-}: Props): JSX.Element => {
+const Picture = ({ className, lazyLoad = false, orientation, publicId, version }: Props): JSX.Element => {
   const [hasLoaded, setHasLoaded] = useState<boolean>(false);
   const [shouldLoad, setShouldLoad] = useState<boolean>(false);
   const imgSrc = `${resourceBaseUrl}/w_1280/v${version}/${publicId}.jpg`;
   const imgRef = useRef(null);
-  const onImageLoad = useCallback((e): void => {
+  const onImageLoad = useCallback((): void => {
     setHasLoaded(true);
   }, [publicId, version]);
+
+  useIntersectionObserver(imgRef, (): void => {
+    setShouldLoad(true);
+  });
 
   useEffect((): void => {
     if (!lazyLoad) {
@@ -71,26 +68,13 @@ const Picture = ({
     }
   }, [lazyLoad]);
 
-  useIntersectionObserver(imgRef, (): void => {
-    setShouldLoad(true);
-  });
-
   return (
-    <PictureContainer
-      className={className}
-      hasLoaded={hasLoaded}
-      orientation={orientation}
-    >
+    <PictureContainer className={className} hasLoaded={hasLoaded} orientation={orientation}>
       {pictureSources({ shouldLoad, publicId, version })}
-      <Image
-        hasLoaded={hasLoaded}
-        onLoad={onImageLoad}
-        ref={imgRef}
-        src={shouldLoad ? imgSrc : null}
-      />
+      <Image hasLoaded={hasLoaded} onLoad={onImageLoad} ref={imgRef} src={shouldLoad ? imgSrc : null} />
       {!hasLoaded && shouldLoad && <LoadingStrip />}
     </PictureContainer>
   );
-}
+};
 
 export default Picture;

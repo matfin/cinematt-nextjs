@@ -1,5 +1,5 @@
 import styled, { css, keyframes, Keyframes } from 'styled-components';
-import { animationCurve, colours } from '../../styles';
+import { colours } from '../../styles';
 
 export enum Direction {
   UP = 'UP',
@@ -7,7 +7,7 @@ export enum Direction {
 }
 
 interface SquareProps {
-  direction: Direction
+  direction: Direction;
 }
 
 const verticalBounce = (direction: Direction): Keyframes => keyframes`
