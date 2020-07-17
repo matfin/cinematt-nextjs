@@ -8,19 +8,20 @@ interface Props {
   photos: Photo[];
 }
 
-const Gallery = ({ className, photos }: Props): JSX.Element => (
-  <Container>
-    {photos.map(({ height, orientation, publicId, version, width }: Photo) =>
-      <Picture
-        height={height}
-        key={`${publicId}-${version}`}
-        orientation={orientation}
-        publicId={publicId}
-        version={version}
-        width={width}
-      />
-    )}
-  </Container>
-);
+const Gallery = ({ className, photos }: Props): JSX.Element => {
+  return (
+    <Container className={className}>
+      {photos.map(({ orientation, publicId, version }: Photo) =>
+        <Picture
+          key={`${publicId}-${version}`}
+          lazyLoad
+          orientation={orientation}
+          publicId={publicId}
+          version={version}
+        />
+      )}
+    </Container>
+  );
+};
 
 export default Gallery;

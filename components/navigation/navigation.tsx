@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import config from '../../config';
+import { albums } from '../../config';
 import { Nav, NavItemList } from './navigation.css';
 
 interface Props {
@@ -12,10 +12,8 @@ const capitalise = (item: string): string =>
   `${item.charAt(0).toUpperCase()}${item.slice(1)}`
 ;
 
-const AlbumLinks = (onClick): JSX.Element[] => {
-  const { albums } = config;
-
-  return albums.map((slug: string): JSX.Element => (
+const AlbumLinks = (onClick): JSX.Element[] => (
+  albums.map((slug: string): JSX.Element => (
     <li key={slug}>
       <Link
         as={`/albums/${slug}`}
@@ -24,8 +22,8 @@ const AlbumLinks = (onClick): JSX.Element[] => {
         <a onClick={onClick}>{capitalise(slug)}</a>
       </Link>
     </li>
-  ));
-}
+  ))
+);
 
 const Navigation = ({
   className,

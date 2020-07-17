@@ -1,79 +1,96 @@
-import React from 'react';
-import { Photo, PictureSourceSize } from '../../interfaces';
-import { Image, PictureContainer } from './picture.css';
+import React, { Fragment, useCallback, useRef, useState, useEffect } from 'react';
+import { PictureSourceSize } from '../../interfaces';
+import { Orientation } from '../../types';
+import { resourceBaseUrl, sourceMediaQueries } from '../../config';
+import useIntersectionObserver from '../../hooks/useIntersectionObserver';
+import { Image, LoadingStrip, PictureContainer } from './picture.css';
 
-interface Props extends Photo {
+interface Props {
   className?: string;
+  lazyLoad?: boolean;
+  orientation: Orientation;
+  publicId: string;
+  version: string;
 }
 
-const sourceMediaQueries: PictureSourceSize[] = [
-  {
-    minWidth: 1920,
-    sizes: [2560, 2560, 2560]
-  },
-  {
-    minWidth: 1440,
-    sizes: [2560, 2560, 2560]
-  },
-  {
-    minWidth: 1280,
-    sizes: [1280, 2560, 2560]
-  },
-  {
-    minWidth: 1024,
-    sizes: [1024, 2048, 2560]
-  },
-  {
-    minWidth: 768,
-    sizes: [768, 1536, 2560]
-  },
-  {
-    minWidth: 640,
-    sizes: [640, 1280, 1920]
-  },
-  {
-    minWidth: 480,
-    sizes: [480, 960, 1440]
-  },
-  {
-    minWidth: 320,
-    sizes: [320, 640, 960]
-  },
-];
-
-const resourceBaseUrl = 'https://res.cloudinary.com/matt-finucane-portfolio/image/upload';
-
-const pictureSources = ({ publicId, version }): JSX.Element[] => {
-  return (
-    sourceMediaQueries.map(({ minWidth, sizes }: PictureSourceSize): any => (
-      <source
-        key={`${version}-${minWidth}`}
-        media={`(min-width: ${minWidth}px)`}
-        srcSet={sizes.map((size: number, index: number): string => `
-          ${resourceBaseUrl}/w_${size}/v${version}/${publicId}.jpg ${index + 1}x
-        `).join(',')}
-      />
-    ))
-  );
+const pictureSizePaths = (
+  ext: string,
+  index: number,
+  publicId: string,
+  size: number,
+  version: string,
+): string => {
+  const dpr = index > 0 ? `${index + 1}x` : '';
+  return `${resourceBaseUrl}/w_${size}/v${version}/${publicId}.${ext} ${dpr}`;
 };
+
+const pictureSources = ({ shouldLoad, publicId, version }): JSX.Element[] => (
+  sourceMediaQueries.map(({ minWidth, sizes }: PictureSourceSize): JSX.Element => {
+    const srcSetWebP: string = sizes.map((size: number, index: number) =>
+      pictureSizePaths('webp', index, publicId, size, version)
+    ).join(',');
+    const srcSetJpg: string = sizes.map((size: number, index: number) =>
+      pictureSizePaths('jpg', index, publicId, size, version)
+    ).join(',');
+
+    return (
+      <Fragment key={`${publicId}-${version}-${minWidth}`}>
+        <source
+          media={`(min-width: ${minWidth}px)`}
+          srcSet={shouldLoad ? srcSetWebP : null}
+          type="image/webp"
+        />
+        <source
+          media={`(min-width: ${minWidth}px)`}
+          srcSet={shouldLoad ? srcSetJpg : null}
+          type="image/jpeg"
+        />
+      </Fragment>
+    );
+  })
+);
 
 const Picture = ({
   className,
-  height,
+  lazyLoad = false,
   orientation,
   publicId,
   version,
-  width,
-}: Props): JSX.Element => (
-  <PictureContainer className={className} orientation={orientation}>
-    {pictureSources({ publicId, version })}
-    <Image
-      calcHeight={height}
-      calcWidth={width}
+}: Props): JSX.Element => {
+  const [hasLoaded, setHasLoaded] = useState<boolean>(false);
+  const [shouldLoad, setShouldLoad] = useState<boolean>(false);
+  const imgSrc = `${resourceBaseUrl}/w_1280/v${version}/${publicId}.jpg`;
+  const imgRef = useRef(null);
+  const onImageLoad = useCallback((e): void => {
+    setHasLoaded(true);
+  }, [publicId, version]);
+
+  useEffect((): void => {
+    if (!lazyLoad) {
+      setShouldLoad(true);
+    }
+  }, [lazyLoad]);
+
+  useIntersectionObserver(imgRef, (): void => {
+    setShouldLoad(true);
+  });
+
+  return (
+    <PictureContainer
+      className={className}
+      hasLoaded={hasLoaded}
       orientation={orientation}
-      src={`${resourceBaseUrl}/w_1280/v${version}/${publicId}.jpg`}
-    />
-  </PictureContainer>
-);
+    >
+      {pictureSources({ shouldLoad, publicId, version })}
+      <Image
+        hasLoaded={hasLoaded}
+        onLoad={onImageLoad}
+        ref={imgRef}
+        src={shouldLoad ? imgSrc : null}
+      />
+      {!hasLoaded && shouldLoad && <LoadingStrip />}
+    </PictureContainer>
+  );
+}
 
 export default Picture;
