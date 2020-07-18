@@ -23,4 +23,4 @@ export const layers: Layers = {
   under: -1,
 };
 
-export const animationCurve: string = 'cubic-bezier(0.91, 0.03, 0.12, 1)';
+export const animationCurve = 'cubic-bezier(0.91, 0.03, 0.12, 1)';

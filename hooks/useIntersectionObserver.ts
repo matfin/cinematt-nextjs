@@ -1,18 +1,15 @@
 import { useEffect } from 'react';
 
-const useIntersectionObserver = (ref: React.MutableRefObject<any>, cb: () => void): void => {
-  useEffect((): () => void => {
-    if(!('IntersectionObserver' in window)) {
+const useIntersectionObserver = (ref: React.MutableRefObject<HTMLElement>, cb: () => void): void => {
+  useEffect((): (() => void) => {
+    if (!('IntersectionObserver' in window)) {
       cb();
       return;
     }
 
     const { current } = ref;
-    const observer = new IntersectionObserver((
-      [{ intersectionRatio }]: IntersectionObserverEntry[]
-    ): void => {
-      if(intersectionRatio > 0) {
-        observer.unobserve(current);
+    const observer = new IntersectionObserver(([{ intersectionRatio }]: IntersectionObserverEntry[]): void => {
+      if (intersectionRatio > 0) {
         cb();
       }
     });
@@ -21,6 +18,7 @@ const useIntersectionObserver = (ref: React.MutableRefObject<any>, cb: () => voi
 
     return (): void => {
       observer.unobserve(current);
+      observer.disconnect();
     };
   }, [ref]);
 };

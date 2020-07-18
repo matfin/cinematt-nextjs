@@ -1,5 +1,5 @@
 import React from 'react';
-import { Photo } from '../../interfaces';
+import { Param, Photo, StaticAlbumProps, StaticPaths } from '../../interfaces';
 import Gallery from '../../components/gallery/gallery';
 import Layout from '../../components/layout/layout';
 import { getAlbumIds, getPhotos } from '../../lib/albums';
@@ -16,19 +16,19 @@ const Album = ({ photos }: Props): JSX.Element => {
   );
 };
 
-export async function getStaticPaths(): Promise<any> {
+export async function getStaticPaths(): Promise<StaticPaths> {
   const paths = getAlbumIds();
 
   return { paths, fallback: false };
-};
+}
 
-export async function getStaticProps({ params }): Promise<any> {
+export async function getStaticProps({ params }: Param): Promise<StaticAlbumProps> {
   const { id } = params;
   const photos: Photo[] = await getPhotos(id);
   return {
     props: {
-      photos
-    }
+      photos,
+    },
   };
 }
 

@@ -4,16 +4,16 @@ import { Param, Photo } from '../interfaces';
 import { Orientation } from '../types';
 
 export const getAlbumIds = (): Param[] => {
-  return albums.map((id: string): Param => (
-    {
+  return albums.map(
+    (id: string): Param => ({
       params: {
-        id
-      }
-    }
-  ));
+        id,
+      },
+    }),
+  );
 };
 
-export const getPhotos = async(id: string): Promise<any> => {
+export const getPhotos = async (id: string): Promise<Photo[]> => {
   const filePath = `./assets/photos/${id}.json`;
 
   try {

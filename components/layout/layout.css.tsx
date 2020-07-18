@@ -11,8 +11,8 @@ export const Container = styled.div`
   display: grid;
   grid-template-rows: 5rem auto;
   grid-template-areas:
-    "header"
-    "main";
+    'header'
+    'main';
   overflow-x: hidden;
 `;
 
@@ -41,9 +41,9 @@ export const Nav = styled(Navigation)`
   transform: translate3d(100vw, 0, 0);
   background: ${colours.secondary};
 
-  ${({ isRevealed }: NavProps) => isRevealed && `
+  ${({ isRevealed }: NavProps) =>
+    isRevealed &&
+    `
     transform: translate3d(0, 0, 0);
   `};
 `;
-
-
