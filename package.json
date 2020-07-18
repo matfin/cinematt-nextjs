@@ -4,6 +4,7 @@
   "description": "Personal photography website rebuilt using NextJS",
   "main": "index.js",
   "scripts": {
+    "checks": "yarn coverage && yarn lint",
     "dev": "next",
     "build": "next build",
     "lint": "eslint '*/**/*.{js,ts,tsx}'",
@@ -25,6 +26,7 @@
     "jest": "^26.1.0",
     "next": "^9.4.4",
     "node-fetch": "^2.6.0",
+    "pre-commit": "^1.2.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "styled-components": "^5.1.1",
@@ -45,5 +47,8 @@
     "jest-environment-jsdom-sixteen": "^1.0.3",
     "jest-styled-components": "^7.0.2",
     "prettier": "^2.0.5"
-  }
+  },
+  "pre-commit": [
+    "checks"
+  ]
 }
