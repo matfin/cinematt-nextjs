@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: cinematt
+    image: matfin/cinematt:latest
+    build:
+      context: .docker/nginx/
+      dockerfile: Dockerfile
+    environment:
+      - NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
+      - NGINX_HOST=cinematt.build
+      - SSL_CERTIFICATE=server.crt
+      - SSL_CERTIFICATE_KEY=server.key
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./out:/opt/public:ro
+      - ~/ssl/letsencrypt:/etc/letsencrypt:ro
+    command: nginx -g "daemon off;"

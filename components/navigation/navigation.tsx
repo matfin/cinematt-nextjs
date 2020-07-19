@@ -23,13 +23,17 @@ const AlbumLinks = (onClick): JSX.Element[] =>
 const Navigation = ({ className, onNavigate }: Props): JSX.Element => (
   <Nav className={className}>
     <NavItemList>
-      <Link href="/">
-        <a onClick={onNavigate}>Featured</a>
-      </Link>
+      <li>
+        <Link href="/">
+          <a onClick={onNavigate}>Featured</a>
+        </Link>
+      </li>
       {AlbumLinks(onNavigate)}
-      <Link href="/about">
-        <a onClick={onNavigate}>About</a>
-      </Link>
+      <li>
+        <Link href="/about">
+          <a onClick={onNavigate}>About</a>
+        </Link>
+      </li>
     </NavItemList>
   </Nav>
 );

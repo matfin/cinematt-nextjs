@@ -3,7 +3,7 @@ import 'jest-styled-components';
 import { act, fireEvent, render } from '@testing-library/react';
 import { intersectionObserverMock } from '../../testutils';
 import { Orientation } from '../../types';
-import Picture, { Props } from './picture';
+import Picture, { altText, Props } from './picture';
 
 describe('Picture tests', () => {
   const defaultProps: Props = {
@@ -51,5 +51,11 @@ describe('Picture tests', () => {
       expect(source.srcset).toContain(`w_${expectedSizes[index]}`);
       expect(source.srcset).toContain('v456/123');
     });
+  });
+
+  it('returns the correct alt text', () => {
+    expect(altText()).toEqual('missing title');
+    expect(altText('invalid')).toEqual('missing title');
+    expect(altText('album/descriptive-image-text')).toEqual('descriptive image text');
   });
 });

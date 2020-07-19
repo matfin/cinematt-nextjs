@@ -24,7 +24,7 @@ const Layout = ({ children }: Props): JSX.Element => {
   return (
     <>
       <Head>
-        <title>Cinematt 1.0.0</title>
+        <title>Cinematt</title>
         <meta name="description" content="Personal photography website of Matt Finucane" />
         <meta name="author" content="Matt Finucane" />
       </Head>
