@@ -27,7 +27,6 @@ jobs:
           command: yarn lint
 
   build:
-    machine: true
     docker:
       - image: node:12.18-alpine
     steps:
@@ -41,6 +40,10 @@ jobs:
       - run:
           name: NextJS static export
           command: yarn export
+
+  push:
+    machine: true
+    steps:
       - run:
           name: Build and push docker containers
           command: |
@@ -80,9 +83,15 @@ workflows:
           filters:
             branches:
               only: main
-      - deploy:
+      - push:
           requires:
             - build
+          filters:
+            branches:
+              only: main
+      - deploy:
+          requires:
+            - push
           filters:
             branches:
               only: main
