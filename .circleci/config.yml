@@ -27,6 +27,7 @@ jobs:
           command: yarn lint
 
   build:
+    machine: true
     docker:
       - image: node:12.18-alpine
     steps:
