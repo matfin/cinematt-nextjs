@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  nginx:
+    environment:
+      - NGINX_HOST=cinematt.com
+      - SSL_CERTIFICATE=fullchain.pem
+      - SSL_CERTIFICATE_KEY=privkey.pem
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro

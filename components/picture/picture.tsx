@@ -19,6 +19,12 @@ export interface Props {
   version: string;
 }
 
+export const altText = (publicId = ''): string => {
+  const title = publicId.split('/')[1];
+
+  return title ? title.replace(/-/gi, ' ') : 'missing title';
+};
+
 export const pictureSizePaths = (
   ext: string,
   index: number,
@@ -53,6 +59,7 @@ const Picture = ({ className, lazyLoad = false, orientation, publicId, version }
   const [hasLoaded, setHasLoaded] = useState<boolean>(false);
   const [shouldLoad, setShouldLoad] = useState<boolean>(false);
   const imgSrc = `${resourceBaseUrl}/w_1280/v${version}/${publicId}.jpg`;
+  const imgAlt = altText(publicId);
   const imgRef = useRef(null);
   const onImageLoad = useCallback((): void => {
     setHasLoaded(true);
@@ -71,7 +78,7 @@ const Picture = ({ className, lazyLoad = false, orientation, publicId, version }
   return (
     <PictureContainer className={className} hasLoaded={hasLoaded} orientation={orientation}>
       {pictureSources({ shouldLoad, publicId, version })}
-      <Image hasLoaded={hasLoaded} onLoad={onImageLoad} ref={imgRef} src={shouldLoad ? imgSrc : null} />
+      <Image alt={imgAlt} hasLoaded={hasLoaded} onLoad={onImageLoad} ref={imgRef} src={shouldLoad ? imgSrc : null} />
       {!hasLoaded && shouldLoad && <LoadingStrip />}
     </PictureContainer>
   );
