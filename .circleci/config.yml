@@ -27,9 +27,13 @@ jobs:
           command: yarn lint
 
   build:
-    machine: true
+    docker:
+      - image: node:12.18-alpine
     steps:
       - checkout
+      - run:
+          name: Install yarn dependencies
+          command: yarn
       - run:
           name: NextJS static export
           command: yarn export
@@ -49,7 +53,7 @@ jobs:
             - "69:f4:84:f0:e9:82:8a:88:4e:f2:94:a2:25:80:f1:cb"
       - run:
           name: Copy docker compose files to remote server
-          command: scp -r docker-compose.yml docker-compose.prod.yml .docker/ $DEPLOY_USER@$DEPLOY_HOST:~/
+          command: scp -r docker-compose.yml docker-compose.prod.yml .docker/ out/ $DEPLOY_USER@$DEPLOY_HOST:~/
       - run:
           name: Remotely pull docker images, then restart the container
           command: |
