@@ -5,8 +5,8 @@ services:
     container_name: cinematt
     image: matfin/cinematt:latest
     build:
-      context: .
-      dockerfile: .docker/nginx/Dockerfile
+      context: .docker/nginx
+      dockerfile: Dockerfile
     environment:
       - NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
       - NGINX_HOST=cinematt.build
@@ -16,5 +16,6 @@ services:
       - "80:80"
       - "443:443"
     volumes:
+      - ./out/:/opt/public:ro
       - ~/ssl/letsencrypt:/etc/letsencrypt:ro
     command: nginx -g "daemon off;"
