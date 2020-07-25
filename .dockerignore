@@ -1,6 +1,9 @@
-# Ignore everything
-**
-
-# Exceptions
-!/out/**
-!/.docker/**
+*.MD
+LICENSE
+.circleci
+.git
+.vscode
+coverage
+docker-compose.yml
+docker-compose.prod.yml
+node_modules
