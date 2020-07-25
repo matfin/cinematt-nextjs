@@ -5,6 +5,9 @@ jobs:
     docker:
       - image: node:12.18-alpine
     steps:
+      - run:
+          name: Install Git
+          command: apk add --update git
       - checkout
       - restore_cache:
           name: Restore build cache
@@ -25,33 +28,6 @@ jobs:
       - run:
           name: Run code lint
           command: yarn lint
-
-  build-copy-files:
-    docker:
-      - image: node:12.18-alpine
-    steps:
-      - checkout
-      - add_ssh_keys:
-          fingerprints:
-            - "69:f4:84:f0:e9:82:8a:88:4e:f2:94:a2:25:80:f1:cb"
-      - run:
-          name: Install SCP to copy files
-          command: apk add --update openssh
-      - run:
-          name: Add key to known_hosts
-          command: mkdir -p ~/ssh && ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
-      - run:
-          name: Install yarn dependencies
-          command: yarn
-      - run:
-          name: NextJS build
-          command: yarn build
-      - run:
-          name: NextJS export of static content
-          command: yarn export
-      - run:
-          name: Copy static content and docker files to remote server
-          command: scp -r docker-compose.yml docker-compose.prod.yml .docker/ out/ $DEPLOY_USER@$DEPLOY_HOST:~/
 
   build-push-container:
     machine: true
@@ -79,14 +55,19 @@ jobs:
           name: Add key to known_hosts
           command: mkdir -p ~/ssh && ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
       - run:
-          name: Remotely pull docker images, then restart the container
+          name: Copy over Docker / Compose files to remote server
+          command: scp -r docker-compose.yml docker-compose.prod.yml .docker/ $DEPLOY_USER@$DEPLOY_HOST:~/
+      - run:
+          name: Remotely pull docker images, refresh, then restart the container
           command: |
             ssh -t $DEPLOY_USER@$DEPLOY_HOST "
-              docker pull matfin/cinematt:latest &&
-              docker stop cinematt &&
-              docker rm cinematt &&
+              docker pull matfin/cinematt-build:latest &&
+              docker pull matfin/cinematt-serve:latest &&
+              docker stop build serve &&
+              docker rm build serve &&
               docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
             "
+
 workflows:
   version: 2
   build_and_test:
@@ -95,13 +76,7 @@ workflows:
           filters:
             branches:
               ignore: main
-      - build-copy-files:
-          filters:
-            branches:
-              only: main
       - build-push-container:
-          requires:
-            - build-copy-files
           filters:
             branches:
               only: main

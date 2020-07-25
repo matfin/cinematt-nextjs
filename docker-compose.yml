@@ -1,12 +1,21 @@
 version: '3'
 
 services:
-  nginx:
-    container_name: cinematt
-    image: matfin/cinematt:latest
+  build:
+    container_name: build
+    image: matfin/cinematt-build:latest
     build:
-      context: .docker/nginx
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: .docker/next/Dockerfile
+    volumes:
+      - static-content:/opt/build/out
+
+  serve:
+    container_name: serve
+    image: matfin/cinematt-serve:latest
+    build:
+      context: .
+      dockerfile: .docker/nginx/Dockerfile
     environment:
       - NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
       - NGINX_HOST=cinematt.build
@@ -16,6 +25,9 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./out/:/opt/public:ro
       - ~/ssl/letsencrypt:/etc/letsencrypt:ro
+      - static-content:/opt/public
     command: nginx -g "daemon off;"
+
+volumes:
+  static-content:
