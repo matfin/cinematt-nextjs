@@ -1,9 +1,13 @@
 import React from 'react';
 import Layout from '../components/layout/layout';
+import Content from '../assets/pages/about.md';
+import { Container } from '../styles/pages/about.css';
 
 const About = (): JSX.Element => (
   <Layout>
-    <h1>This is the About page!</h1>
+    <Container>
+      <Content />
+    </Container>
   </Layout>
 );
 

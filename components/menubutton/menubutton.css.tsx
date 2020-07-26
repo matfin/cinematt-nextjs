@@ -37,7 +37,7 @@ export const Container = styled.button`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  padding: 0.5rem;
+  padding: 1rem;
   background-color: ${colours.secondary};
 `;
 

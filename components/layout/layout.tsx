@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
-import { GlobalStyle } from '../../styles';
+import { MDXProvider } from '@mdx-js/react';
+import { components, GlobalStyle } from '../../styles';
 import { Container, LayoutHeader, Main, Nav } from './layout.css';
 
 export interface Props {
@@ -28,11 +29,13 @@ const Layout = ({ children }: Props): JSX.Element => {
         <meta name="description" content="Personal photography website of Matt Finucane" />
         <meta name="author" content="Matt Finucane" />
       </Head>
-      <Container>
-        <LayoutHeader onMenuButtonClick={toggleNav} navRevealed={navRevealed} />
-        <Nav onNavigate={dismissNav} isRevealed={navRevealed} />
-        <Main>{children}</Main>
-      </Container>
+      <MDXProvider components={components}>
+        <Container>
+          <LayoutHeader onMenuButtonClick={toggleNav} navRevealed={navRevealed} />
+          <Nav onNavigate={dismissNav} isRevealed={navRevealed} />
+          <Main>{children}</Main>
+        </Container>
+      </MDXProvider>
       <GlobalStyle />
     </>
   );

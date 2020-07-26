@@ -1,4 +1,4 @@
-import { Breakpoints, Colours, Layers } from '../types';
+import { Breakpoints, Colours, FontSizes, FontWeights, Layers } from '../types';
 
 export const defaultFont = 'Gill Sans,Gill Sans MT,Calibri,sans-serif';
 
@@ -16,6 +16,18 @@ export const colours: Colours = {
   tertiary: '#ccc',
 };
 
+export const fontSizes: FontSizes = {
+  normal: 1.25,
+  larger: 2,
+  largest: 3,
+};
+
+export const fontWeights: FontWeights = {
+  light: 100,
+  medium: 200,
+  heavy: 400,
+};
+
 export const layers: Layers = {
   base: 1,
   over: 2,
@@ -24,3 +36,4 @@ export const layers: Layers = {
 };
 
 export const animationCurve = 'cubic-bezier(0.91, 0.03, 0.12, 1)';
+export const lineHeight = 1.8;

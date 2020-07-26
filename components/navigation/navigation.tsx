@@ -9,6 +9,7 @@ export interface Props {
 }
 
 const capitalise = (item: string): string => `${item.charAt(0).toUpperCase()}${item.slice(1)}`;
+
 const AlbumLinks = (onClick): JSX.Element[] =>
   albums.map(
     (slug: string): JSX.Element => (
