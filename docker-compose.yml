@@ -9,6 +9,7 @@ services:
       dockerfile: .docker/next/Dockerfile
     volumes:
       - static-content:/opt/build/out
+    command: yarn deploy
 
   serve:
     container_name: serve
@@ -26,7 +27,7 @@ services:
       - "443:443"
     volumes:
       - ~/ssl/letsencrypt:/etc/letsencrypt:ro
-      - static-content:/opt/public
+      - static-content:/opt/public:ro
     command: nginx -g "daemon off;"
 
 volumes:

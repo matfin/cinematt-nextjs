@@ -8,4 +8,4 @@ services:
       - SSL_CERTIFICATE_KEY=privkey.pem
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt:ro
-      - static-content:/opt/public
+      - static-content:/opt/public:ro
