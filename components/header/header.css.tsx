@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { fontSizes, fontWeights } from '../../styles';
 import MenuButton from '../menubutton/menubutton';
 
 export const Container = styled.header`
@@ -9,11 +10,11 @@ export const Container = styled.header`
 `;
 
 export const Title = styled.h1`
-  font-size: 2rem;
-  font-weight: 100;
+  font-size: ${fontSizes.largest}rem;
+  font-weight: ${fontWeights.light};
 `;
 
 export const Button = styled(MenuButton)`
-  width: 4rem;
-  height: 4rem;
+  width: 5rem;
+  height: 5rem;
 `;

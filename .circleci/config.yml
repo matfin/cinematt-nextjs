@@ -38,7 +38,7 @@ jobs:
           command: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
       - run:
           name: Build with Docker Compose and production settings
-          command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml build
+          command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml build --no-cache
       - run:
           name: Push to remote Docker hub
           command: docker-compose push
