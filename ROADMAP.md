@@ -1,12 +1,15 @@
 ### What we should add
-- test coverage
-- lint / prettier tools
 - data for photos
-- photo collection view
 - script to fetch from Cloudinary
-- updated README
+- PWA for offline viewing
+- bring Lighthouse score to 100%
+- image detail view
+- page metadata for improved accessibility / SEO
 
 ### What we have now
+- test coverage
+- lint / prettier tools
+- photo collection view
 - basic page set up
 - layout template
 - navigation menu
