@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { Orientation } from '../../types';
 import { animationCurve, colours } from '../../styles';
 import Loading from '../loading/loading';
 
@@ -9,11 +8,13 @@ interface ImageProps {
 
 interface PictureProps {
   hasLoaded: boolean;
-  orientation: Orientation;
 }
 
 export const PictureContainer = styled.picture<PictureProps>`
   position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
   border: 1px solid ${colours.tertiary};
   transition: border 350ms ${animationCurve};
 
@@ -22,17 +23,11 @@ export const PictureContainer = styled.picture<PictureProps>`
     css`
       border: 1px solid ${colours.secondary};
     `}
-
-  ${({ orientation }: PictureProps) =>
-    orientation === Orientation.Portrait &&
-    css`
-      grid-row-end: span 2;
-    `}
 `;
 
 export const Image = styled.img<ImageProps>`
   width: 100%;
-  height: 100%;
+  height: 75%;
   object-position: center;
   object-fit: cover;
   opacity: 0;
@@ -41,6 +36,7 @@ export const Image = styled.img<ImageProps>`
   ${({ hasLoaded }) =>
     hasLoaded &&
     css`
+      height: 100%;
       opacity: 1;
     `};
 `;

@@ -1,5 +1,10 @@
 import styled, { css } from 'styled-components';
+import { Orientation } from '../../types';
 import { media } from '../../styles/mixins';
+
+interface LinkProps {
+  orientation: Orientation;
+}
 
 export const Container = styled.div`
   display: grid;
@@ -18,4 +23,12 @@ export const Container = styled.div`
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: calc(33vw * (9 / 16));
   `)}
+`;
+
+export const LinkSt = styled.a`
+  ${({ orientation }: LinkProps) =>
+    orientation === Orientation.Portrait &&
+    css`
+      grid-row-end: span 2;
+    `}
 `;

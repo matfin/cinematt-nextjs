@@ -6,7 +6,7 @@ export const albums: string[] = [
   'events', 'nature',
 ];
 
-export const sourceMediaQueries: PictureSourceSize[] = [
+export const tileSourceMediaQueries: PictureSourceSize[] = [
   {
     minWidth: 1920,
     sizes: [960, 1920, 2560]
@@ -38,6 +38,41 @@ export const sourceMediaQueries: PictureSourceSize[] = [
   {
     minWidth: 320,
     sizes: [320, 640, 960]
+  },
+];
+
+export const detailSourceMediaQueries: PictureSourceSize[] = [
+  {
+    minWidth: 1920,
+    sizes: [2560]
+  },
+  {
+    minWidth: 1440,
+    sizes: [1680, 2560, 2560]
+  },
+  {
+    minWidth: 1280,
+    sizes: [1360, 2560, 2560]
+  },
+  {
+    minWidth: 1024,
+    sizes: [1152, 2304, 2560]
+  },
+  {
+    minWidth: 768,
+    sizes: [896, 1792, 2560]
+  },
+  {
+    minWidth: 640,
+    sizes: [704, 1408, 2112]
+  },
+  {
+    minWidth: 480,
+    sizes: [560, 1120, 1680]
+  },
+  {
+    minWidth: 320,
+    sizes: [400, 800, 1200]
   },
 ];
 

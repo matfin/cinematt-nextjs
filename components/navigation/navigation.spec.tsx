@@ -4,12 +4,17 @@ import { fireEvent, render } from '@testing-library/react';
 import Navigation, { Props } from './navigation';
 
 jest.mock('next/link', () => ({ children }) => children);
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
+
+const defaultProps: Props = {
+  onNavigate: jest.fn(),
+};
 
 describe('Navigation tests', (): void => {
-  const defaultProps: Props = {
-    onNavigate: jest.fn(),
-  };
-
   it('renders the component', (): void => {
     const wrapper = render(<Navigation {...defaultProps} />);
     const { container } = wrapper;
