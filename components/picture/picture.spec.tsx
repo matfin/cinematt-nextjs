@@ -14,6 +14,7 @@ describe('Picture tests', () => {
 
   it('renders the component', (): void => {
     expect(render(<Picture {...defaultProps} />)).toBeTruthy();
+    expect(render(<Picture {...defaultProps} isDetail />)).toBeTruthy();
   });
 
   it('does not initially load the image when lazy loading is enabled', (): void => {

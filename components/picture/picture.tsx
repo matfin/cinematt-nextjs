@@ -1,11 +1,11 @@
 import React, { Fragment, useCallback, useRef, useState, useEffect } from 'react';
 import { PictureSourceSize } from '../../interfaces';
-import { Orientation } from '../../types';
-import { resourceBaseUrl, sourceMediaQueries } from '../../config';
+import { resourceBaseUrl, detailSourceMediaQueries, tileSourceMediaQueries } from '../../config';
 import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 import { Image, LoadingStrip, PictureContainer } from './picture.css';
 
-interface PictureSizeProps {
+interface PictureSourcesProps {
+  isDetail: boolean;
   publicId: string;
   shouldLoad: boolean;
   version: string;
@@ -13,8 +13,8 @@ interface PictureSizeProps {
 
 export interface Props {
   className?: string;
+  isDetail?: boolean;
   lazyLoad?: boolean;
-  orientation: Orientation;
   publicId: string;
   version: string;
 }
@@ -33,11 +33,14 @@ export const pictureSizePaths = (
   version: string,
 ): string => {
   const dpr = index > 0 ? `${index + 1}x` : '';
+
   return `${resourceBaseUrl}/w_${size}/v${version}/${publicId}.${ext} ${dpr}`;
 };
 
-export const pictureSources = ({ shouldLoad, publicId, version }: PictureSizeProps): JSX.Element[] =>
-  sourceMediaQueries.map(
+export const pictureSources = ({ isDetail, publicId, shouldLoad, version }: PictureSourcesProps): JSX.Element[] => {
+  const sourceMediaQueries = isDetail ? detailSourceMediaQueries : tileSourceMediaQueries;
+
+  return sourceMediaQueries.map(
     ({ minWidth, sizes }: PictureSourceSize): JSX.Element => {
       const srcSetWebP: string = sizes
         .map((size: number, index: number) => pictureSizePaths('webp', index, publicId, size, version))
@@ -54,8 +57,9 @@ export const pictureSources = ({ shouldLoad, publicId, version }: PictureSizePro
       );
     },
   );
+};
 
-const Picture = ({ className, lazyLoad = false, orientation, publicId, version }: Props): JSX.Element => {
+const Picture = ({ className, isDetail = false, lazyLoad = false, publicId, version }: Props): JSX.Element => {
   const [hasLoaded, setHasLoaded] = useState<boolean>(false);
   const [shouldLoad, setShouldLoad] = useState<boolean>(false);
   const imgSrc = `${resourceBaseUrl}/w_1280/v${version}/${publicId}.jpg`;
@@ -76,8 +80,8 @@ const Picture = ({ className, lazyLoad = false, orientation, publicId, version }
   }, [lazyLoad]);
 
   return (
-    <PictureContainer className={className} hasLoaded={hasLoaded} orientation={orientation}>
-      {pictureSources({ shouldLoad, publicId, version })}
+    <PictureContainer className={className} hasLoaded={hasLoaded}>
+      {pictureSources({ isDetail, publicId, shouldLoad, version })}
       <Image alt={imgAlt} hasLoaded={hasLoaded} onLoad={onImageLoad} ref={imgRef} src={shouldLoad ? imgSrc : null} />
       {!hasLoaded && shouldLoad && <LoadingStrip />}
     </PictureContainer>

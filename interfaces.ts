@@ -7,9 +7,16 @@ export interface IntersectionObserverMockProps {
   unobserve: () => jest.Mock<any, any>;
 }
 
-export interface Param {
+export interface AlbumParam {
   params: {
-    id: string;
+    slug: string;
+  }
+}
+
+export interface PictureParam {
+  params: {
+    publicId: string;
+    slug: string;
   }
 }
 
@@ -28,11 +35,17 @@ export interface PictureSourceSize {
 
 export interface StaticPaths {
   fallback: boolean;
-  paths: Param[];
+  paths: AlbumParam[] | PictureParam[];
 }
 
 export interface StaticAlbumProps {
   props: {
     photos: Photo[];
+  }
+}
+
+export interface StaticPhotoProps {
+  props: {
+    photo?: Photo;
   }
 }

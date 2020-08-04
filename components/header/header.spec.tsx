@@ -1,3 +1,8 @@
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
+}));
+
+import { useRouter } from 'next/router';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { fireEvent, render } from '@testing-library/react';
@@ -9,8 +14,24 @@ describe('Header tests', (): void => {
     onMenuButtonClick: jest.fn(),
   };
 
-  it('renders the component', (): void => {
-    expect(render(<Header {...defaultProps} />)).toBeTruthy();
+  beforeEach(() => {
+    useRouter.mockImplementation(() => ({
+      query: {
+        slug: 'test-slug-ahee',
+      },
+    }));
+  });
+
+  beforeEach((): void => {
+    jest.clearAllMocks();
+  });
+
+  it('renders the component with the title', (): void => {
+    const { container } = render(<Header {...defaultProps} />);
+
+    expect(container).toBeTruthy();
+    expect(container.querySelector('h1')).toBeTruthy();
+    expect(container.querySelector('a')).toBeFalsy();
   });
 
   it('executes the callback on button click', async (): Promise<void> => {
@@ -23,5 +44,19 @@ describe('Header tests', (): void => {
     });
 
     await expect(spyOnMenuButtonClick).toHaveBeenCalled();
+  });
+
+  it('renders the website title', (): void => {
+    useRouter.mockImplementation(() => ({
+      query: {
+        publicId: 'test-publicId',
+        slug: 'test-slug',
+      },
+    }));
+
+    const { container } = render(<Header {...defaultProps} />);
+
+    expect(container.querySelector('h1')).toBeFalsy();
+    expect(container.querySelector('a')).toBeTruthy();
   });
 });

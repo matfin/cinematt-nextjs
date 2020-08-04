@@ -4,6 +4,15 @@ import Layout from './layout';
 import { act } from 'react-dom/test-utils';
 
 jest.mock('next/link', () => ({ children }) => children);
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: 'test/path',
+    query: {
+      publicId: 'test-publicId',
+      slug: 'test-slug',
+    },
+  }),
+}));
 
 describe('Layout tests', (): void => {
   it('renders the component', (): void => {
@@ -41,9 +50,9 @@ describe('Layout tests', (): void => {
 
   it('enables body scroll on navigation', async (): Promise<void> => {
     const wrapper = render(<Layout />);
-    const { container } = wrapper;
+    const { container, getByTestId } = wrapper;
     const button = container.querySelector('button');
-    const link = container.querySelector('a');
+    const link = getByTestId('events');
 
     act((): void => {
       fireEvent.click(button);

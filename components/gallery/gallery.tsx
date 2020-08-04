@@ -1,7 +1,8 @@
 import React from 'react';
+import Link from 'next/link';
 import { Photo } from '../../interfaces';
 import Picture from '../../components/picture/picture';
-import { Container } from './gallery.css';
+import { Container, LinkSt } from './gallery.css';
 
 export interface Props {
   className?: string;
@@ -11,13 +12,11 @@ export interface Props {
 const Gallery = ({ className, photos }: Props): JSX.Element => (
   <Container className={className}>
     {photos.map(({ orientation, publicId, version }: Photo) => (
-      <Picture
-        key={`${publicId}-${version}`}
-        lazyLoad
-        orientation={orientation}
-        publicId={publicId}
-        version={version}
-      />
+      <Link as={`/albums/${publicId}`} href="/albums/[slug]/[publicId]" key={`${publicId}-${version}`}>
+        <LinkSt orientation={orientation}>
+          <Picture lazyLoad publicId={publicId} version={version} />
+        </LinkSt>
+      </Link>
     ))}
   </Container>
 );
