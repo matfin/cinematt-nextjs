@@ -1,5 +1,5 @@
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
-import { animationCurve, colours } from '../../styles';
+import { animationCurve, colours } from 'styles';
 
 export enum LinePlacement {
   TOP = 'top',

@@ -1,5 +1,5 @@
 import styled, { css, keyframes, Keyframes } from 'styled-components';
-import { colours } from '../../styles';
+import { colours } from 'styles';
 
 export enum Direction {
   UP = 'UP',

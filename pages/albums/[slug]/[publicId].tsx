@@ -1,8 +1,8 @@
 import React from 'react';
-import { Photo, PictureParam, StaticPaths, StaticPhotoProps } from '../../../interfaces';
-import Layout from '../../../components/layout/layout';
-import { getPhoto, getPhotoPublicIds } from '../../../lib/albums';
-import { Container, PictureSt } from '../../../styles/pages/picturedetail.css';
+import { Photo, PictureParam, StaticPaths, StaticPhotoProps } from 'models/interfaces';
+import Layout from 'components/layout/layout';
+import { getPhoto, getPhotoPublicIds } from 'lib/albums';
+import { Container, PictureSt } from 'styles/pages/picturedetail.css';
 
 interface Props {
   photo: Photo;

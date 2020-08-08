@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Picture from '../../components/picture/picture';
+import Picture from 'components/picture/picture';
 
 interface ContainerProps {
   photoHeight: number;

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Photo, StaticAlbumProps } from '../interfaces';
-import Gallery from '../components/gallery/gallery';
-import Layout from '../components/layout/layout';
-import { getPhotos } from '../lib/albums';
+import { Photo, StaticAlbumProps } from 'models/interfaces';
+import Gallery from 'components/gallery/gallery';
+import Layout from 'components/layout/layout';
+import { getPhotos } from 'lib/albums';
 
 interface Props {
   photos: Photo[];

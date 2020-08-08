@@ -1,4 +1,4 @@
-import { PictureSourceSize } from './interfaces';
+import { PictureSourceSize } from 'models/interfaces';
 
 export const albums: string[] = [
   'abandoned', 'people', 'music',

@@ -1,13 +1,11 @@
 import React from 'react';
 import 'jest-styled-components';
 import { act, fireEvent, render } from '@testing-library/react';
-import { intersectionObserverMock } from '../../testutils';
-import { Orientation } from '../../types';
+import { intersectionObserverMock } from 'testutils';
 import Picture, { altText, Props } from './picture';
 
 describe('Picture tests', () => {
   const defaultProps: Props = {
-    orientation: Orientation.Landscape,
     publicId: '123',
     version: '456',
   };

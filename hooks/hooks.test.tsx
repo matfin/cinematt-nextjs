@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { render } from '@testing-library/react';
 import useIntersectionObserver from './useIntersectionObserver';
-import { intersectionObserverMock } from '../testutils';
+import { intersectionObserverMock } from 'testutils';
 
 describe('userIntersectionObserver tests', () => {
   const spyDisconnect = jest.fn();

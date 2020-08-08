@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useRef, useState, useEffect } from 'react';
-import { PictureSourceSize } from '../../interfaces';
-import { resourceBaseUrl, detailSourceMediaQueries, tileSourceMediaQueries } from '../../config';
-import useIntersectionObserver from '../../hooks/useIntersectionObserver';
+import { PictureSourceSize } from 'models/interfaces';
+import { resourceBaseUrl, detailSourceMediaQueries, tileSourceMediaQueries } from 'config';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import { Image, LoadingStrip, PictureContainer } from './picture.css';
 
 interface PictureSourcesProps {

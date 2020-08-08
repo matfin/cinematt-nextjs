@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { colours, fontSizes, fontWeights } from '../../styles';
+import { colours, fontSizes, fontWeights } from 'styles';
 import MenuButton from '../menubutton/menubutton';
 
 const arrowLine = css`

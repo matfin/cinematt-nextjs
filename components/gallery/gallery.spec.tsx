@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { Photo } from '../../interfaces';
-import { Orientation } from '../../types';
+import { Photo } from 'models/interfaces';
+import { Orientation } from 'models/types';
 import Gallery, { Props } from './gallery';
 
 describe('Gallery tests', (): void => {

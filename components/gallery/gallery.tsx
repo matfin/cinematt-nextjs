@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { Photo } from '../../interfaces';
-import Picture from '../../components/picture/picture';
+import { Photo } from 'models/interfaces';
+import Picture from 'components/picture/picture';
 import { Container, LinkSt } from './gallery.css';
 
 export interface Props {

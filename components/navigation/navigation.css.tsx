@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { animationCurve, colours, text } from '../../styles';
+import { animationCurve, colours, text } from 'styles';
 
 interface LinkTextProps {
   isActive: boolean;
