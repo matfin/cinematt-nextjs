@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { albums } from '../../config';
+import { albums } from 'config';
 import { LinkTextSt, Nav, NavItemList } from './navigation.css';
 
 export interface Props {

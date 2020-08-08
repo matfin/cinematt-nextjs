@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
-import { animationCurve, colours } from '../../styles';
-import Loading from '../loading/loading';
+import { animationCurve, colours } from 'styles';
+import Loading from 'components/loading/loading';
 
 interface ImageProps {
   hasLoaded: boolean;

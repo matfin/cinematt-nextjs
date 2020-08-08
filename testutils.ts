@@ -1,4 +1,4 @@
-import { IntersectionObserverMockProps } from './interfaces';
+import { IntersectionObserverMockProps } from 'models/interfaces';
 
 export const intersectionObserverMock = ({ disconnect, observe, observerEntries, unobserve }: IntersectionObserverMockProps): void => {
   class IntersectionObserver {

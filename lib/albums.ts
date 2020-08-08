@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
-import { albums } from '../config';
-import { AlbumParam, Photo, PictureParam } from '../interfaces';
-import { Orientation } from '../types';
+import { albums } from 'config';
+import { AlbumParam, Photo, PictureParam } from 'models/interfaces';
+import { Orientation } from 'models/types';
 
 export const getAlbumSlugs = (): AlbumParam[] => {
   return albums.map(

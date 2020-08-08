@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { animationCurve, colours, layers } from '../../styles';
-import Header from '../header/header';
-import Navigation from '../navigation/navigation';
+import { animationCurve, colours, layers } from 'styles';
+import Header from 'components/header/header';
+import Navigation from 'components/navigation/navigation';
 
 interface NavProps {
   isRevealed: boolean;

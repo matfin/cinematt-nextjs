@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
-import { Orientation } from '../../types';
-import { media } from '../../styles/mixins';
+import { Orientation } from 'models/types';
+import { media } from 'styles/mixins';
 
 interface LinkProps {
   orientation: Orientation;

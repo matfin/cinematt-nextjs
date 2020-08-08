@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import { MDXProvider } from '@mdx-js/react';
-import { components, GlobalStyle } from '../../styles';
+import { components, GlobalStyle } from 'styles';
 import { Container, LayoutHeader, Main, Nav } from './layout.css';
 
 export interface Props {
