@@ -1,4 +1,4 @@
-import { Breakpoints, Colours, FontSizes, FontWeights, Layers } from 'types';
+import { Breakpoints, Colours, FontSizes, FontWeights, Layers } from '../models/types';
 
 export const defaultFont = 'Gill Sans,Gill Sans MT,Calibri,sans-serif';
 
