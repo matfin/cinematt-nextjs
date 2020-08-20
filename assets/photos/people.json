@@ -1,5 +1,11 @@
 [
   {
+    "height": 2560,
+    "publicId": "people/kitchner-musician",
+    "version": 1597958756,
+    "width": 1709
+  },
+  {
     "height": 1440,
     "publicId": "people/selfie",
     "version": 1597176858,
@@ -448,5 +454,11 @@
     "publicId": "people/alberto-blindfolded",
     "version": 1497005300,
     "width": 961
+  },
+  {
+    "height": 1536,
+    "publicId": "people/ian",
+    "version": 1597954273,
+    "width": 2048
   }
 ]

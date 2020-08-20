@@ -1,6 +1,18 @@
 [
   {
     "height": 1440,
+    "publicId": "nature/dragonfly",
+    "version": 1597958048,
+    "width": 2560
+  },
+  {
+    "height": 1440,
+    "publicId": "nature/grenouille",
+    "version": 1597953720,
+    "width": 2560
+  },
+  {
+    "height": 1440,
     "publicId": "nature/spirit-of-folk-bird",
     "version": 1497005117,
     "width": 2560
@@ -111,6 +123,12 @@
     "height": 1440,
     "publicId": "nature/blumen",
     "version": 1497005026,
+    "width": 2560
+  },
+  {
+    "height": 1924,
+    "publicId": "nature/waterplant",
+    "version": 1597954732,
     "width": 2560
   }
 ]
