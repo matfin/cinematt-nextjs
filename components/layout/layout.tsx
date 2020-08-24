@@ -72,7 +72,7 @@ const Layout = ({ children }: Props): JSX.Element => {
         <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png" />
         <meta name="theme-color" content={colours.secondary} />
 
-        <link rel="shortcut icon" href="/icons/favicon.ico" />
+        <link rel="shortcut icon" href="/favicon.ico" />
 
         <link rel="manifest" href="/manifest.json" />
         <link rel="canonical" href={`https://cinematt.photography${asPath}`} />
