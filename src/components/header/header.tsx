@@ -23,7 +23,9 @@ const Header = ({ className, navRevealed, onMenuButtonClick }: Props): JSX.Eleme
           </BackLink>
         </Link>
       ) : (
-        <Title>Cinematt</Title>
+        <Link href="/">
+          <Title onClick={onMenuButtonClick}>Cinematt</Title>
+        </Link>
       )}
       <Button isOpen={navRevealed} onClick={onMenuButtonClick} />
     </Container>

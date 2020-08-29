@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { animationCurve, colours, text } from 'styles';
+import { animationCurve, colours, media, text } from 'styles';
 
 interface LinkTextProps {
   isActive: boolean;
@@ -9,6 +9,10 @@ export const Nav = styled.nav`
   display: grid;
   grid-template-rows: 6rem auto;
   grid-template-columns: 1rem auto 1rem;
+
+  ${media.sm(css`
+    grid-template-rows: auto;
+  `)}
 `;
 
 export const LinkTextSt = styled.a<LinkTextProps>`
@@ -48,4 +52,14 @@ export const NavItemList = styled.ul`
   grid-template-rows: repeat(5, 2.5rem);
 
   ${text};
+
+  ${media.sm(css`
+    grid-row: 1;
+    grid-template-columns: 1rem auto 1rem;
+    grid-template-rows: repeat(10, 3rem);
+
+    li {
+      grid-column: 2 / 3;
+    }
+  `)}
 `;

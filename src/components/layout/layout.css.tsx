@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { animationCurve, colours, layers } from 'styles';
+import styled, { css } from 'styled-components';
+import { animationCurve, colours, layers, media } from 'styles';
 import Header from 'components/header/header';
 import Navigation from 'components/navigation/navigation';
 
@@ -23,27 +23,39 @@ export const LayoutHeader = styled(Header)`
   left: 0;
   width: 100vw;
   height: 5rem;
-  background: ${colours.secondary};
+  background: ${colours.secondaryOpaque};
 `;
 
 export const Main = styled.main`
   grid-area: main;
 `;
 
-export const Nav = styled(Navigation)`
+export const Nav = styled(Navigation)<NavProps>`
   z-index: ${layers.over};
   position: fixed;
-  top: 0;
+  top: 2.5rem;
   left: 0;
   width: 100vw;
   height: 100vh;
+  background: ${colours.secondaryOpaque};
+  backdrop-filter: blur(4px);
   transition: transform 350ms ${animationCurve};
   transform: translate3d(100vw, 0, 0);
-  background: ${colours.secondary};
 
   ${({ isRevealed }: NavProps) =>
     isRevealed &&
     `
-    transform: translate3d(0, 0, 0);
-  `};
+      transform: translate3d(0, 0, 0);
+    `};
+
+  ${media.sm(css`
+    top: 5rem;
+    width: 15rem;
+
+    ${({ isRevealed }: NavProps) =>
+      isRevealed &&
+      `
+        transform: translate3d(calc(100vw - 15rem), 0, 0);
+      `};
+  `)}
 `;

@@ -9,7 +9,7 @@ interface LinkProps {
 
 export const Container = styled.div`
   display: grid;
-  width: 100vw;
+  width: 100%;
   grid-auto-rows: calc(100vw * (9 / 16));
   grid-auto-flow: row dense;
   grid-gap: 0.25rem;

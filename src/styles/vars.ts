@@ -3,17 +3,19 @@ import { Breakpoints, Colours, FontSizes, FontWeights, Layers } from '../models/
 export const defaultFont = 'Gill Sans,Gill Sans MT,Calibri,sans-serif';
 
 export const breakpoints: Breakpoints = {
+  base: 0,
   sm: 480,
   md: 768,
   lg: 1024,
-  xl: 1440,
-  xxl: 1920,
+  xl: 1280,
+  xxl: 1440,
 };
 
 export const colours: Colours = {
   primary: '#000',
   secondary: '#fff',
   tertiary: '#ccc',
+  secondaryOpaque: 'rgba(255,255,255, 0.9)',
 };
 
 export const fontSizes: FontSizes = {
