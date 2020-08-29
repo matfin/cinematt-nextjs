@@ -1,4 +1,5 @@
 export type Breakpoints = {
+  base: number;
   sm: number;
   md: number;
   lg: number;
@@ -10,6 +11,7 @@ export type Colours = {
   primary: string;
   secondary: string;
   tertiary: string;
+  secondaryOpaque: string;
 };
 
 export type FontSizes = {

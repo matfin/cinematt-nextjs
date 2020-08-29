@@ -18,6 +18,7 @@ export const Container = styled.header`
   justify-content: space-between;
   flex-direction: row;
   padding: 0 1rem;
+  backdrop-filter: blur(4px);
 `;
 
 export const Title = styled.h1`

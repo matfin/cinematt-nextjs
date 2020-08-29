@@ -16,7 +16,7 @@ const transformTo = (placement: LinePlacement): FlattenSimpleInterpolation => {
   switch (placement) {
     case LinePlacement.TOP: {
       return css`
-        transform: translate3d(0, 13px, 0) rotate(-45deg);
+        transform: translate3d(0, 0.75rem, 0) rotate(-45deg);
       `;
     }
     case LinePlacement.BOTTOM: {
@@ -38,12 +38,12 @@ export const Container = styled.button`
   justify-content: space-evenly;
   align-items: center;
   padding: 1rem;
-  background-color: ${colours.secondary};
+  background-color: transparent;
 `;
 
 export const Line = styled.span<ListStProps>`
   width: 2rem;
-  height: 1px;
+  height: 2px;
   background: ${colours.primary};
   transform-origin: center center;
   transition: transform 0.5s ${animationCurve}, rotate 0.5s ${animationCurve};
