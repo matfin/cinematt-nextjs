@@ -16,6 +16,7 @@ const socialImagePath = ({ public_id, version }: Photo): string =>
   `${resourceBaseUrl}/w_1280/v${version}/${public_id}.jpg`;
 
 const Layout = ({ children, titlePhoto }: Props): JSX.Element => {
+  const siteVersion: string = process.env.version;
   const { asPath } = useRouter();
   const [navRevealed, setNavRevealed] = useState<boolean>(false);
   const setBodyOverflow = (overflow: boolean): void => {
@@ -46,6 +47,7 @@ const Layout = ({ children, titlePhoto }: Props): JSX.Element => {
 
         <meta name="description" content="Personal photography website of Matt Finucane" />
         <meta name="author" content="Matt Finucane" />
+        <meta name="version" content={siteVersion} />
 
         <meta property="og:url" content={`https://cinematt.photography${asPath}`} />
         <meta property="og:site_name" content="cinematt.photography" />
