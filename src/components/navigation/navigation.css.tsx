@@ -10,7 +10,7 @@ export const Nav = styled.nav`
   grid-template-rows: 6rem auto;
   grid-template-columns: 1rem auto 1rem;
 
-  ${media.sm(css`
+  ${media.lg(css`
     grid-template-rows: auto;
   `)}
 `;
@@ -53,7 +53,7 @@ export const NavItemList = styled.ul`
 
   ${text};
 
-  ${media.sm(css`
+  ${media.lg(css`
     grid-row: 1;
     grid-template-columns: 1rem auto 1rem;
     grid-template-rows: repeat(10, 3rem);

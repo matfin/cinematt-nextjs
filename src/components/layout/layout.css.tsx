@@ -33,7 +33,6 @@ export const Main = styled.main`
 export const Nav = styled(Navigation)<NavProps>`
   z-index: ${layers.over};
   position: fixed;
-  top: 2.5rem;
   left: 0;
   width: 100vw;
   height: 100vh;
@@ -48,7 +47,7 @@ export const Nav = styled(Navigation)<NavProps>`
       transform: translate3d(0, 0, 0);
     `};
 
-  ${media.sm(css`
+  ${media.lg(css`
     top: 5rem;
     width: 15rem;
 
