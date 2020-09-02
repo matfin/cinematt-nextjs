@@ -1,13 +1,31 @@
 import React from 'react';
 import 'jest-styled-components';
 import { act, fireEvent, render } from '@testing-library/react';
+import { Color } from 'models/interfaces';
+import { Orientation } from 'models/types';
 import { intersectionObserverMock } from 'testutils';
 import Picture, { altText, Props } from './picture';
+import { gradient } from './picture.css';
 
 describe('Picture tests', () => {
   const defaultProps: Props = {
-    public_id: '123',
-    version: '456',
+    photo: {
+      album: 'test',
+      colors: [
+        { code: '#fff', weight: 0.4 },
+        { code: '#000', weight: 0.6 },
+      ],
+      created_at: new Date('1982-04-26'),
+      format: 'jpg',
+      height: 768,
+      image_metadata: {},
+      name: 'test',
+      orientation: Orientation.Landscape,
+      public_id: '123',
+      tags: [],
+      version: '456',
+      width: 1024,
+    },
   };
 
   it('renders the component', (): void => {
@@ -56,5 +74,16 @@ describe('Picture tests', () => {
     expect(altText()).toEqual('missing title');
     expect(altText('invalid')).toEqual('missing title');
     expect(altText('album/descriptive-image-text')).toEqual('descriptive image text');
+  });
+
+  describe('picture styles', (): void => {
+    it('should return the correct gradient', (): void => {
+      const colors: Color[] = [
+        { code: '#fff', weight: 0.5 },
+        { code: '#ccc', weight: 0.25 },
+        { code: '#000', weight: 0.25 },
+      ];
+      expect(gradient(colors)).toEqual('#fff,#ccc,#000');
+    });
   });
 });

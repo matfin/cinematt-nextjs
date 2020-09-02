@@ -1,22 +1,20 @@
 import React, { Fragment, useCallback, useRef, useState, useEffect } from 'react';
-import { PictureSourceSize } from 'models/interfaces';
+import { PictureSourceSize, Photo } from 'models/interfaces';
 import { resourceBaseUrl, detailSourceMediaQueries, tileSourceMediaQueries } from 'config';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import { Image, LoadingStrip, PictureContainer } from './picture.css';
 
 interface PictureSourcesProps {
   isDetail: boolean;
-  public_id: string;
+  photo: Photo;
   shouldLoad: boolean;
-  version: string;
 }
 
 export interface Props {
   className?: string;
   isDetail?: boolean;
   lazyLoad?: boolean;
-  public_id: string;
-  version: string;
+  photo: Photo;
 }
 
 export const altText = (public_id = ''): string => {
@@ -25,28 +23,24 @@ export const altText = (public_id = ''): string => {
   return title ? title.replace(/-/gi, ' ') : 'missing title';
 };
 
-export const pictureSizePaths = (
-  ext: string,
-  index: number,
-  public_id: string,
-  size: number,
-  version: string,
-): string => {
+export const pictureSizePaths = (ext: string, index: number, photo: Photo, size: number): string => {
   const dpr = index > 0 ? `${index + 1}x` : '';
+  const { public_id, version } = photo;
 
   return `${resourceBaseUrl}/w_${size}/v${version}/${public_id}.${ext} ${dpr}`;
 };
 
-export const pictureSources = ({ isDetail, public_id, shouldLoad, version }: PictureSourcesProps): JSX.Element[] => {
+export const pictureSources = ({ isDetail, photo, shouldLoad }: PictureSourcesProps): JSX.Element[] => {
   const sourceMediaQueries = isDetail ? detailSourceMediaQueries : tileSourceMediaQueries;
+  const { public_id, version } = photo;
 
   return sourceMediaQueries.map(
     ({ minWidth, sizes }: PictureSourceSize): JSX.Element => {
       const srcSetWebP: string = sizes
-        .map((size: number, index: number) => pictureSizePaths('webp', index, public_id, size, version))
+        .map((size: number, index: number) => pictureSizePaths('webp', index, photo, size))
         .join(',');
       const srcSetJpg: string = sizes
-        .map((size: number, index: number) => pictureSizePaths('jpg', index, public_id, size, version))
+        .map((size: number, index: number) => pictureSizePaths('jpg', index, photo, size))
         .join(',');
 
       return (
@@ -59,9 +53,10 @@ export const pictureSources = ({ isDetail, public_id, shouldLoad, version }: Pic
   );
 };
 
-const Picture = ({ className, isDetail = false, lazyLoad = false, public_id, version }: Props): JSX.Element => {
+const Picture = ({ className, isDetail = false, lazyLoad = false, photo }: Props): JSX.Element => {
   const [hasLoaded, setHasLoaded] = useState<boolean>(false);
   const [shouldLoad, setShouldLoad] = useState<boolean>(false);
+  const { colors, public_id, version } = photo;
   const imgSrc = `${resourceBaseUrl}/w_1280/v${version}/${public_id}.jpg`;
   const imgAlt = altText(public_id);
   const imgRef = useRef(null);
@@ -80,8 +75,8 @@ const Picture = ({ className, isDetail = false, lazyLoad = false, public_id, ver
   }, [lazyLoad]);
 
   return (
-    <PictureContainer className={className} hasLoaded={hasLoaded}>
-      {pictureSources({ isDetail, public_id, shouldLoad, version })}
+    <PictureContainer className={className} colors={colors} hasLoaded={hasLoaded}>
+      {pictureSources({ isDetail, photo, shouldLoad })}
       <Image alt={imgAlt} hasLoaded={hasLoaded} onLoad={onImageLoad} ref={imgRef} src={shouldLoad ? imgSrc : null} />
       {!hasLoaded && shouldLoad && <LoadingStrip />}
     </PictureContainer>
