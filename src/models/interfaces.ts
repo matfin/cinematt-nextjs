@@ -36,6 +36,9 @@ export interface Photo {
   album: string;
   public_id: string;
   format: string;
+  image_metadata?: {
+    [index: string]: string;
+  };
   version: string;
   created_at: Date;
   width: number;

@@ -12,7 +12,7 @@ interface Props {
 const PictureDetail = ({ photo }: Props): JSX.Element => (
   <Layout titlePhoto={photo}>
     <Container photoHeight={photo.height}>
-      <PictureSt isDetail lazyLoad public_id={photo.public_id} version={photo.version} />
+      <PictureSt isDetail lazyLoad photo={photo} />
     </Container>
   </Layout>
 );

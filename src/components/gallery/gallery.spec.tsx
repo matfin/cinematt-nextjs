@@ -19,9 +19,11 @@ describe('Gallery tests', (): void => {
       {
         name: 'test-one',
         album: 'test',
+        colors: [{ code: '#fff', weight: 1.0 }],
         format: 'jpg',
         created_at: new Date('1982-04-26'),
         height: 320,
+        image_metadata: {},
         orientation: Orientation.Landscape,
         public_id: 'id-123',
         version: 'v-123',
@@ -31,9 +33,11 @@ describe('Gallery tests', (): void => {
       {
         name: 'test-one',
         album: 'test',
+        colors: [{ code: '#fff', weight: 1.0 }],
         format: 'jpg',
         created_at: new Date('1982-04-26'),
         height: 240,
+        image_metadata: {},
         orientation: Orientation.Portrait,
         public_id: 'id-456',
         version: 'v-456',

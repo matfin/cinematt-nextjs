@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
-import { animationCurve, colours } from 'styles';
+import { Color } from 'models/interfaces';
+import { animationCurve } from 'styles';
 import Loading from 'components/loading/loading';
 
 interface ImageProps {
@@ -8,20 +9,29 @@ interface ImageProps {
 
 interface PictureProps {
   hasLoaded: boolean;
+  colors: Color[];
 }
+
+export const gradient = (colors: Color[], start = 0, end = 5): string =>
+  colors
+    .slice(start, end)
+    .map(({ code }: Color): string => `${code}`)
+    .join(',');
 
 export const PictureContainer = styled.picture<PictureProps>`
   position: relative;
   display: block;
   width: 100%;
   height: 100%;
-  border: 1px solid ${colours.tertiary};
   transition: border 350ms ${animationCurve};
+  ${({ colors }: PictureProps) => css`
+    background: linear-gradient(217deg, ${gradient(colors, 0, 5)});
+  `}
 
   ${({ hasLoaded }) =>
     hasLoaded &&
     css`
-      border: 1px solid ${colours.secondary};
+      background: none;
     `}
 `;
 

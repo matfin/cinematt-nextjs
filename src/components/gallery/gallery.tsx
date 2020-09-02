@@ -11,13 +11,14 @@ export interface Props {
 
 const Gallery = ({ className, photos }: Props): JSX.Element => (
   <Container className={className}>
-    {photos.map(({ orientation, public_id, tags, version }: Photo) => {
+    {photos.map((photo: Photo) => {
+      const { public_id, orientation, tags, version } = photo;
       const isProminent: boolean = tags.includes('prominent');
 
       return (
         <Link as={`/albums/${public_id}`} href="/albums/[albumName]/[public_id]" key={`${public_id}-${version}`}>
           <LinkSt isProminent={isProminent} orientation={orientation}>
-            <Picture lazyLoad public_id={public_id} version={version} />
+            <Picture lazyLoad photo={photo} />
           </LinkSt>
         </Link>
       );
