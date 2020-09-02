@@ -7,9 +7,10 @@ export interface Props {
   className?: string;
   navRevealed: boolean;
   onMenuButtonClick: (e: React.MouseEvent | React.TouchEvent) => void;
+  onTitleClick: (e: React.MouseEvent | React.TouchEvent) => void;
 }
 
-const Header = ({ className, navRevealed, onMenuButtonClick }: Props): JSX.Element => {
+const Header = ({ className, navRevealed, onMenuButtonClick, onTitleClick }: Props): JSX.Element => {
   const {
     query: { public_id, albumName },
   } = useRouter();
@@ -24,7 +25,9 @@ const Header = ({ className, navRevealed, onMenuButtonClick }: Props): JSX.Eleme
         </Link>
       ) : (
         <Link href="/">
-          <Title onClick={onMenuButtonClick}>Cinematt</Title>
+          <Title data-testid="title" onClick={onTitleClick}>
+            Cinematt
+          </Title>
         </Link>
       )}
       <Button isOpen={navRevealed} onClick={onMenuButtonClick} />

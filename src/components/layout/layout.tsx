@@ -13,7 +13,11 @@ export interface Props {
 }
 
 const setBodyOverflow = (overflow: boolean): void => {
-  document.body.style.overflow = overflow ? 'auto' : 'hidden';
+  if (overflow) {
+    document.body.classList.add('overflow-lock');
+  } else {
+    document.body.classList.remove('overflow-lock');
+  }
 };
 
 const Layout = ({ children, titlePhoto }: Props): JSX.Element => {
@@ -21,11 +25,11 @@ const Layout = ({ children, titlePhoto }: Props): JSX.Element => {
   const [navRevealed, setNavRevealed] = useState<boolean>(false);
   const toggleNav = (): void => {
     setNavRevealed(!navRevealed);
-    setBodyOverflow(!!navRevealed);
+    setBodyOverflow(!navRevealed);
   };
   const dismissNav = (): void => {
     setNavRevealed(false);
-    setBodyOverflow(true);
+    setBodyOverflow(false);
   };
 
   return (
@@ -36,7 +40,7 @@ const Layout = ({ children, titlePhoto }: Props): JSX.Element => {
       </Head>
       <MDXProvider components={components}>
         <Container>
-          <LayoutHeader onMenuButtonClick={toggleNav} navRevealed={navRevealed} />
+          <LayoutHeader onMenuButtonClick={toggleNav} onTitleClick={dismissNav} navRevealed={navRevealed} />
           <Nav onNavigate={dismissNav} isRevealed={navRevealed} />
           <Main>{children}</Main>
         </Container>
