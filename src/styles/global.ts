@@ -1,5 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
-import { colours, defaultFont } from './vars';
+import { createGlobalStyle, css } from 'styled-components';
+import { breakpoints, colours, defaultFont } from './vars';
+import { media } from './mixins';
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -13,6 +14,15 @@ export const GlobalStyle = createGlobalStyle`
     background: ${colours.secondary};
     font-family: ${defaultFont};
     font-variant-ligatures: no-common-ligatures;
+
+    &.overflow-lock {
+      ${media.base(
+        css`
+          overflow: hidden;
+        `,
+        breakpoints.lg,
+      )}
+    }
   }
 
   a {

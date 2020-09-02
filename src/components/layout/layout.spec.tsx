@@ -80,35 +80,44 @@ describe('Layout tests', (): void => {
   });
 
   it('prevents body scroll when navigation is revealed', async (): Promise<void> => {
-    const wrapper = render(<Layout />);
-    const { container } = wrapper;
+    const view = render(<Layout />);
+    const { container } = view;
     const button = container.querySelector('button');
 
-    act((): void => {
-      fireEvent.click(button);
-    });
-    await expect(document.body.style.overflow).toEqual('hidden');
+    await act(
+      async (): Promise<void> => {
+        fireEvent.click(button);
+      },
+    );
 
-    act((): void => {
-      fireEvent.click(button);
-    });
-    await expect(document.body.style.overflow).toEqual('auto');
+    await expect(document.body.classList).toContain('overflow-lock');
+
+    await act(
+      async (): Promise<void> => {
+        fireEvent.click(button);
+      },
+    );
+    await expect(document.body.classList).not.toContain('overflow-lock');
   });
 
-  it('enables body scroll on navigation', async (): Promise<void> => {
-    const wrapper = render(<Layout />);
-    const { container, getByTestId } = wrapper;
+  it('dismisses navigation on title click', async (): Promise<void> => {
+    const view = render(<Layout />);
+    const { container, getByTestId } = view;
     const button = container.querySelector('button');
-    const link = getByTestId('events');
+    const title = getByTestId('title');
 
-    act((): void => {
-      fireEvent.click(button);
-    });
-    await expect(document.body.style.overflow).toEqual('hidden');
+    await act(
+      async (): Promise<void> => {
+        fireEvent.click(button);
+      },
+    );
+    await expect(document.body.classList).toContain('overflow-lock');
 
-    act((): void => {
-      fireEvent.click(link);
-    });
-    await expect(document.body.style.overflow).toEqual('auto');
+    await act(
+      async (): Promise<void> => {
+        fireEvent.click(title);
+      },
+    );
+    await expect(document.body.classList).not.toContain('overflow-lock');
   });
 });
