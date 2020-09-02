@@ -67,6 +67,7 @@ export interface StaticAlbumProps {
 
 export interface StaticPhotoProps {
   props: {
+    album?: Album;
     photo?: Photo;
   };
 }

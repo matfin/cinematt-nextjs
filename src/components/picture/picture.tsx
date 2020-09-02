@@ -56,16 +56,19 @@ export const pictureSources = ({ isDetail, photo, shouldLoad }: PictureSourcesPr
 const Picture = ({ className, isDetail = false, lazyLoad = false, photo }: Props): JSX.Element => {
   const [hasLoaded, setHasLoaded] = useState<boolean>(false);
   const [shouldLoad, setShouldLoad] = useState<boolean>(false);
-  const { colors, public_id, version } = photo;
+  const { orientation, public_id, version } = photo;
   const imgSrc = `${resourceBaseUrl}/w_1280/v${version}/${public_id}.jpg`;
   const imgAlt = altText(public_id);
   const imgRef = useRef(null);
+
   const onImageLoad = useCallback((): void => {
     setHasLoaded(true);
   }, [public_id, version]);
 
   useIntersectionObserver(imgRef, (): void => {
-    setShouldLoad(true);
+    if (lazyLoad) {
+      setShouldLoad(true);
+    }
   });
 
   useEffect((): void => {
@@ -74,10 +77,22 @@ const Picture = ({ className, isDetail = false, lazyLoad = false, photo }: Props
     }
   }, [lazyLoad]);
 
+  useEffect((): void => {
+    setHasLoaded(false);
+  }, [photo]);
+
   return (
-    <PictureContainer className={className} colors={colors} hasLoaded={hasLoaded}>
+    <PictureContainer className={className}>
       {pictureSources({ isDetail, photo, shouldLoad })}
-      <Image alt={imgAlt} hasLoaded={hasLoaded} onLoad={onImageLoad} ref={imgRef} src={shouldLoad ? imgSrc : null} />
+      <Image
+        alt={imgAlt}
+        hasLoaded={hasLoaded}
+        isDetail={isDetail}
+        onLoad={onImageLoad}
+        orientation={orientation}
+        ref={imgRef}
+        src={shouldLoad ? imgSrc : null}
+      />
       {!hasLoaded && shouldLoad && <LoadingStrip />}
     </PictureContainer>
   );

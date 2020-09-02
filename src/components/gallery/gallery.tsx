@@ -16,7 +16,12 @@ const Gallery = ({ className, photos }: Props): JSX.Element => (
       const isProminent: boolean = tags.includes('prominent');
 
       return (
-        <Link as={`/albums/${public_id}`} href="/albums/[albumName]/[public_id]" key={`${public_id}-${version}`}>
+        <Link
+          as={`/albums/${public_id}`}
+          href="/albums/[albumName]/[public_id]"
+          key={`${public_id}-${version}`}
+          passHref
+        >
           <LinkSt isProminent={isProminent} orientation={orientation}>
             <Picture lazyLoad photo={photo} />
           </LinkSt>

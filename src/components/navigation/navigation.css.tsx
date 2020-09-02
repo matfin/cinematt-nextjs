@@ -7,8 +7,8 @@ interface LinkTextProps {
 
 export const Nav = styled.nav`
   display: grid;
-  grid-template-rows: 6rem auto;
-  grid-template-columns: 1rem auto 1rem;
+  grid-template-rows: 4rem auto;
+  grid-template-columns: 1.5rem auto 1.5rem;
 
   ${media.lg(css`
     grid-template-rows: auto;

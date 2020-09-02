@@ -1,11 +1,10 @@
 import React from 'react';
 import 'jest-styled-components';
 import { act, fireEvent, render } from '@testing-library/react';
-import { Color } from 'models/interfaces';
 import { Orientation } from 'models/types';
 import { intersectionObserverMock } from 'testutils';
 import Picture, { altText, Props } from './picture';
-import { gradient } from './picture.css';
+import { imageDimensions } from './picture.css';
 
 describe('Picture tests', () => {
   const defaultProps: Props = {
@@ -77,13 +76,10 @@ describe('Picture tests', () => {
   });
 
   describe('picture styles', (): void => {
-    it('should return the correct gradient', (): void => {
-      const colors: Color[] = [
-        { code: '#fff', weight: 0.5 },
-        { code: '#ccc', weight: 0.25 },
-        { code: '#000', weight: 0.25 },
-      ];
-      expect(gradient(colors)).toEqual('#fff,#ccc,#000');
+    it('returns the correct style given display type and picture orientation', (): void => {
+      expect(imageDimensions(Orientation.Landscape, false)).toEqual(['width:100%;height:100%;']);
+      expect(imageDimensions(Orientation.Landscape, true)).toEqual(['width:100%;height:auto;']);
+      expect(imageDimensions(Orientation.Portrait, true)).toEqual(['width:auto;height:100%;']);
     });
   });
 });

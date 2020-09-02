@@ -7,6 +7,10 @@ export type Breakpoints = {
   xxl: number;
 };
 
+export type Dimensions = {
+  navigationHeight: number;
+};
+
 export type Colours = {
   primary: string;
   secondary: string;

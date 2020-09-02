@@ -1,19 +1,21 @@
 import React from 'react';
-import { Photo, PictureParam, StaticPaths, StaticPhotoProps } from 'models/interfaces';
+import { Album, Photo, PictureParam, StaticPaths, StaticPhotoProps } from 'models/interfaces';
 import Layout from 'components/layout/layout';
 import { getPhoto, getPhotoPublicIds } from 'lib/photos';
-
-import { Container, PictureSt } from 'styles/pages/picturedetail.css';
+import { getAlbum } from 'lib/albums';
+import { Container, FooterNavigation, PictureSt } from 'styles/pages/picturedetail.css';
 
 interface Props {
+  album: Album;
   photo: Photo;
 }
 
-const PictureDetail = ({ photo }: Props): JSX.Element => (
+const PictureDetail = ({ album, photo }: Props): JSX.Element => (
   <Layout titlePhoto={photo}>
-    <Container photoHeight={photo.height}>
+    <Container>
       <PictureSt isDetail lazyLoad photo={photo} />
     </Container>
+    <FooterNavigation album={album} currentPhoto={photo} />
   </Layout>
 );
 
@@ -26,9 +28,11 @@ export async function getStaticPaths(): Promise<StaticPaths> {
 export async function getStaticProps({ params }: PictureParam): Promise<StaticPhotoProps> {
   const { albumName, public_id } = params;
   const photo: Photo | null = await getPhoto(`${albumName}/${public_id}`);
+  const album: Album | null = await getAlbum(albumName);
 
   return {
     props: {
+      album,
       photo,
     },
   };
