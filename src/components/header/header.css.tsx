@@ -1,30 +1,20 @@
-import styled, { css } from 'styled-components';
-import { colours, fontSizes, fontWeights } from 'styles';
+import styled from 'styled-components';
+import { dimensions, fontSizes, fontWeights } from 'styles';
 import MenuButton from '../menubutton/menubutton';
-
-const arrowLine = css`
-  position: absolute;
-  width: 1.5rem;
-  left: 1rem;
-  height: 0.125rem;
-  background: ${colours.primary};
-  content: '';
-  transform-origin: right;
-`;
 
 export const Container = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
-  padding: 0 1rem;
   backdrop-filter: blur(4px);
 `;
 
 export const Title = styled.h1`
   font-size: ${fontSizes.largest}rem;
   font-weight: ${fontWeights.light};
-  line-height: 5rem;
+  line-height: ${dimensions.navigationHeight}rem;
+  margin-left: 1rem;
 `;
 
 export const Button = styled(MenuButton)`
@@ -33,19 +23,15 @@ export const Button = styled(MenuButton)`
 `;
 
 export const BackButton = styled.span`
-  width: 2rem;
-  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: ${dimensions.navigationHeight}rem;
+  font-size: 2rem;
 
   &::before {
-    ${arrowLine};
-    top: 1.75rem;
-    transform: rotate(-28deg);
-  }
-
-  &::after {
-    ${arrowLine};
-    bottom: 1.75rem;
-    transform: rotate(28deg);
+    content: '<';
   }
 `;
 

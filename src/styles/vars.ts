@@ -1,4 +1,4 @@
-import { Breakpoints, Colours, FontSizes, FontWeights, Layers } from '../models/types';
+import { Breakpoints, Colours, Dimensions, FontSizes, FontWeights, Layers } from '../models/types';
 
 export const defaultFont = 'Gill Sans,Gill Sans MT,Calibri,sans-serif';
 
@@ -35,6 +35,10 @@ export const layers: Layers = {
   over: 2,
   top: 3,
   under: -1,
+};
+
+export const dimensions: Dimensions = {
+  navigationHeight: 5,
 };
 
 export const animationCurve = 'cubic-bezier(0.91, 0.03, 0.12, 1)';

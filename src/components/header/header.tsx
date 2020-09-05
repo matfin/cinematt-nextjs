@@ -18,7 +18,7 @@ const Header = ({ className, navRevealed, onMenuButtonClick, onTitleClick }: Pro
   return (
     <Container className={className}>
       {public_id ? (
-        <Link href="/albums/[albumName]" as={`/albums/${albumName}`}>
+        <Link href="/albums/[albumName]" as={`/albums/${albumName}`} passHref>
           <BackLink>
             <BackButton />
           </BackLink>
