@@ -10,14 +10,16 @@ interface Props {
   photo: Photo;
 }
 
-const PictureDetail = ({ album, photo }: Props): JSX.Element => (
-  <Layout titlePhoto={photo}>
-    <Container>
-      <PictureSt isDetail lazyLoad photo={photo} />
-    </Container>
-    <FooterNavigation album={album} currentPhoto={photo} />
-  </Layout>
-);
+const PictureDetail = ({ album, photo }: Props): JSX.Element => {
+  return (
+    <Layout titlePhoto={photo}>
+      <Container>
+        <PictureSt isDetail lazyLoad photo={photo} />
+      </Container>
+      <FooterNavigation album={album} currentPhoto={photo} />
+    </Layout>
+  );
+};
 
 export async function getStaticPaths(): Promise<StaticPaths> {
   const paths = await getPhotoPublicIds();
