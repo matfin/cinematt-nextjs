@@ -1,4 +1,4 @@
-jest.mock('next/router', () => ({
+jest.mock('next/router', (): { useRouter: jest.Mock } => ({
   useRouter: jest.fn(),
 }));
 
@@ -12,6 +12,7 @@ describe('Header tests', (): void => {
   const defaultProps: Props = {
     navRevealed: false,
     onMenuButtonClick: jest.fn(),
+    onTitleClick: jest.fn(),
   };
 
   beforeEach(() => {
@@ -22,7 +23,7 @@ describe('Header tests', (): void => {
     }));
   });
 
-  beforeEach((): void => {
+  afterEach((): void => {
     jest.clearAllMocks();
   });
 

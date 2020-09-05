@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Album, Photo } from 'models/interfaces';
+import useKeyDown from 'hooks/useKeyDown';
 import { Back, Container, Details, Forward, Grid, GridLink, Navigation } from './footernav.css';
 
 export interface Props {
@@ -13,6 +15,7 @@ const urlFromPhoto = ({ public_id }: Photo): string => `/albums/${public_id}`;
 
 const FooterNav = ({ album, className, currentPhoto }: Props): JSX.Element => {
   const { photos, name } = album;
+  const router = useRouter();
   const photoCount: number = photos.length;
   const currentIndex: number = photos.findIndex(({ public_id }: Photo) => public_id === currentPhoto.public_id);
   const firstPhoto: Photo = photos[0];
@@ -21,6 +24,19 @@ const FooterNav = ({ album, className, currentPhoto }: Props): JSX.Element => {
   const prevPhoto: Photo | undefined = photos[currentIndex - 1];
   const backUrl: string = urlFromPhoto(prevPhoto ?? lastPhoto);
   const forwardUrl: string = urlFromPhoto(nextPhoto ?? firstPhoto);
+
+  useKeyDown(({ keyCode }): void => {
+    switch (keyCode) {
+      case 37: {
+        router.push('/albums/[albumName]/[public_id]', backUrl);
+        break;
+      }
+      case 39: {
+        router.push('/albums/[albumName]/[public_id]', forwardUrl);
+        break;
+      }
+    }
+  });
 
   return (
     <Container className={className}>

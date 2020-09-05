@@ -1,5 +1,6 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { useRouter } from 'next/router';
+import { render, fireEvent } from '@testing-library/react';
 import { Photo } from 'models/interfaces';
 import { Orientation } from 'models/types';
 import FooterNav, { Props } from './footernav';
@@ -51,7 +52,23 @@ const defaultProps: Props = {
   currentPhoto: photos[1],
 };
 
+jest.mock('next/router', (): { useRouter: jest.Mock } => ({
+  useRouter: jest.fn(),
+}));
+
 describe('Footer nav', (): void => {
+  const spyPush = jest.fn();
+
+  beforeEach((): void => {
+    useRouter.mockImplementation(() => ({
+      push: spyPush,
+    }));
+  });
+
+  afterEach((): void => {
+    jest.clearAllMocks();
+  });
+
   it('renders the component', (): void => {
     expect(render(<FooterNav {...defaultProps} />)).toBeTruthy();
   });
@@ -86,5 +103,15 @@ describe('Footer nav', (): void => {
     expect(container.querySelector('span').textContent).toEqual('1 of 3');
     expect(container.querySelectorAll('a')[0].href).toContain('/albums/test/test-photo-three');
     expect(container.querySelectorAll('a')[1].href).toContain('/albums/test/test-photo-two');
+  });
+
+  it('advances to the next and previous photos on key press', (): void => {
+    render(<FooterNav {...defaultProps} />);
+
+    fireEvent.keyDown(window, { keyCode: 37 });
+    expect(spyPush).toHaveBeenCalledWith('/albums/[albumName]/[public_id]', '/albums/test/test-photo-one');
+
+    fireEvent.keyDown(window, { keyCode: 39 });
+    expect(spyPush).toHaveBeenCalledWith('/albums/[albumName]/[public_id]', '/albums/test/test-photo-three');
   });
 });
