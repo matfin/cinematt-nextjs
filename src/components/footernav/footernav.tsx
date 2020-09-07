@@ -2,7 +2,9 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Album, Photo } from 'models/interfaces';
+import { Direction } from 'models/types';
 import useKeyDown from 'hooks/useKeyDown';
+import useSwipe from 'hooks/useSwipe';
 import { Back, Container, Details, Forward, Grid, GridLink, Navigation } from './footernav.css';
 
 export interface Props {
@@ -24,19 +26,30 @@ const FooterNav = ({ album, className, currentPhoto }: Props): JSX.Element => {
   const prevPhoto: Photo | undefined = photos[currentIndex - 1];
   const backUrl: string = urlFromPhoto(prevPhoto ?? lastPhoto);
   const forwardUrl: string = urlFromPhoto(nextPhoto ?? firstPhoto);
+  const goPrev = (): Promise<boolean> => router.push('/albums/[albumName]/[public_id]', backUrl);
+  const goNext = (): Promise<boolean> => router.push('/albums/[albumName]/[public_id]', forwardUrl);
 
-  useKeyDown(({ keyCode }): void => {
-    switch (keyCode) {
-      case 37: {
-        router.push('/albums/[albumName]/[public_id]', backUrl);
-        break;
+  useKeyDown(
+    ({ keyCode }): Promise<boolean> => {
+      switch (keyCode) {
+        case 37:
+          return goPrev();
+        case 39:
+          return goNext();
       }
-      case 39: {
-        router.push('/albums/[albumName]/[public_id]', forwardUrl);
-        break;
+    },
+  );
+
+  useSwipe(
+    (direction: Direction): Promise<boolean> => {
+      switch (direction) {
+        case Direction.Right:
+          return goPrev();
+        case Direction.Left:
+          return goNext();
       }
-    }
-  });
+    },
+  );
 
   return (
     <Container className={className}>

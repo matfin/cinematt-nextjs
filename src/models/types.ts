@@ -41,3 +41,10 @@ export enum Orientation {
   Landscape = 'landscape',
   Portrait = 'portrait',
 }
+
+export enum Direction {
+  Down = 'down',
+  Left = 'left',
+  Right = 'right',
+  Up = 'up',
+}

@@ -2,7 +2,8 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { render, fireEvent } from '@testing-library/react';
 import { Photo } from 'models/interfaces';
-import { Orientation } from 'models/types';
+import { Orientation, Direction } from 'models/types';
+import { swipe } from 'testutils';
 import FooterNav, { Props } from './footernav';
 
 const photos: Photo[] = [
@@ -112,6 +113,16 @@ describe('Footer nav', (): void => {
     expect(spyPush).toHaveBeenCalledWith('/albums/[albumName]/[public_id]', '/albums/test/test-photo-one');
 
     fireEvent.keyDown(window, { keyCode: 39 });
+    expect(spyPush).toHaveBeenCalledWith('/albums/[albumName]/[public_id]', '/albums/test/test-photo-three');
+  });
+
+  it('advances to the next and previous photos on swipe', (): void => {
+    render(<FooterNav {...defaultProps} />);
+
+    swipe(Direction.Right);
+    expect(spyPush).toHaveBeenCalledWith('/albums/[albumName]/[public_id]', '/albums/test/test-photo-one');
+
+    swipe(Direction.Left);
     expect(spyPush).toHaveBeenCalledWith('/albums/[albumName]/[public_id]', '/albums/test/test-photo-three');
   });
 });
