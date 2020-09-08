@@ -50,7 +50,7 @@ export const Nav = styled(Navigation)<NavProps>`
     isRevealed &&
     `
       transform: translate3d(0, 0, 0);
-    `};
+    `}
 
   ${media.lg(css`
     width: 15rem;
@@ -59,6 +59,6 @@ export const Nav = styled(Navigation)<NavProps>`
       isRevealed &&
       `
         transform: translate3d(calc(100vw - 15rem), 0, 0);
-      `};
+      `}
   `)}
 `;

@@ -14,12 +14,15 @@ const verticalBounce = (direction: Direction): Keyframes => keyframes`
   0% {
     transform: translate3d(0, 0, 0);
   }
+
   25% {
     transform: translate3d(0, ${direction === Direction.UP ? '0.5rem' : '-0.5rem'}, 0);
   }
+
   75% {
     transform: translate3d(0, ${direction === Direction.DOWN ? '0.5rem' : '-0.5rem'}, 0);
   }
+
   100% {
     transform: translate3d(0, 0, 0);
   }

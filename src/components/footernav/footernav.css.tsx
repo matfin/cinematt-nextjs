@@ -27,7 +27,7 @@ export const Navigation = styled.div`
 `;
 
 export const Back = styled.a`
-  ${buttonStyle};
+  ${buttonStyle}
 
   &::before {
     content: '<';
@@ -35,7 +35,7 @@ export const Back = styled.a`
 `;
 
 export const Forward = styled.a`
-  ${buttonStyle};
+  ${buttonStyle}
 
   &::after {
     content: '>';
@@ -43,7 +43,7 @@ export const Forward = styled.a`
 `;
 
 export const Details = styled.span`
-  ${text};
+  ${text}
 `;
 
 export const Grid = styled(GridIcon)`

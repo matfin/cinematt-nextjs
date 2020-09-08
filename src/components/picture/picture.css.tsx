@@ -37,7 +37,7 @@ export const PictureContainer = styled.picture`
 `;
 
 export const Image = styled.img<ImageProps>`
-  ${({ isDetail, orientation }) => imageDimensions(orientation, isDetail)};
+  ${({ isDetail, orientation }) => imageDimensions(orientation, isDetail)}
   object-position: center;
   object-fit: cover;
   opacity: 0;
@@ -52,7 +52,7 @@ export const Image = styled.img<ImageProps>`
     hasLoaded &&
     css`
       opacity: 1;
-    `};
+    `}
 `;
 
 export const LoadingStrip = styled(Loading)`
