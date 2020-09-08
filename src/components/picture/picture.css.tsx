@@ -29,6 +29,7 @@ export const imageDimensions = (orientation: Orientation, isDetail: boolean): Fl
 };
 
 export const PictureContainer = styled.picture`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
