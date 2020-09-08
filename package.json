@@ -1,10 +1,11 @@
 {
   "name": "cinematt",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Personal photography website rebuilt using NextJS",
   "main": "index.js",
   "scripts": {
-    "checks": "yarn coverage && yarn lint",
+    "checks": "yarn coverage && yarn lint && yarn csslint",
+    "csslint": "stylelint \"./src/styles/**/*\" \"./src/**/*.css.tsx\"",
     "dev": "next",
     "deploy": "yarn build && yarn export",
     "export": "next export",
@@ -50,7 +51,9 @@
     "eslint-plugin-react-hooks": "^4.0.8",
     "jest-environment-jsdom-sixteen": "^1.0.3",
     "jest-styled-components": "^7.0.2",
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "stylelint": "^13.7.0",
+    "stylelint-config-standard": "^20.0.0"
   },
   "pre-commit": [
     "checks"

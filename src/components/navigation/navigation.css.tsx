@@ -27,15 +27,13 @@ export const LinkTextSt = styled.a<LinkTextProps>`
     background: ${colours.primary};
     content: '';
     transition: width 350ms ${animationCurve};
-  }
 
-  ${({ isActive }: LinkTextProps) =>
-    isActive &&
-    css`
-      &::after {
+    ${({ isActive }: LinkTextProps) =>
+      isActive &&
+      css`
         width: 100%;
-      }
-    `}
+      `}
+  }
 
   &:hover {
     &::after {
@@ -51,7 +49,7 @@ export const NavItemList = styled.ul`
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(5, 2.5rem);
 
-  ${text};
+  ${text}
 
   ${media.lg(css`
     grid-row: 1;
