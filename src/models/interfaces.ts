@@ -26,6 +26,11 @@ export interface PictureParam {
   };
 }
 
+export interface SitemapEntry {
+  lastmod: string;
+  loc: string;
+}
+
 export interface Color {
   code: string;
   weight: number;
@@ -62,6 +67,12 @@ export interface StaticAlbumProps {
   props: {
     album: Album;
     titlePhoto?: Photo;
+  };
+}
+
+export interface StaticSitemapProps {
+  props: {
+    entries: SitemapEntry[];
   };
 }
 
