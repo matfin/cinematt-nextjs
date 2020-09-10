@@ -1,2 +1,3 @@
 User-agent: *
-Allow: /
+Disallow: /api
+Sitemap: https://cinematt.photography/sitemap.xml
