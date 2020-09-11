@@ -83,4 +83,4 @@ export const detailSourceMediaQueries: PictureSourceSize[] = [
 
 export const resourceBaseUrl = 'https://res.cloudinary.com/matt-finucane-portfolio/image/upload';
 
-export const sitemapBaseUrl = 'https//cinematt.photography';
+export const sitemapBaseUrl = 'https://cinematt.photography';
