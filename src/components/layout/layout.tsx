@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { MDXProvider } from '@mdx-js/react';
 import { Photo } from 'models/interfaces';
@@ -34,10 +33,7 @@ const Layout = ({ children, titlePhoto }: Props): JSX.Element => {
 
   return (
     <>
-      <Head>
-        <title>Cinematt</title>
-        <Meta titlePhoto={titlePhoto} currentPath={asPath} />
-      </Head>
+      <Meta currentPath={asPath} titlePhoto={titlePhoto} />
       <MDXProvider components={components}>
         <Container>
           <LayoutHeader onMenuButtonClick={toggleNav} onTitleClick={dismissNav} navRevealed={navRevealed} />
