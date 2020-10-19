@@ -3,6 +3,14 @@ import { render } from '@testing-library/react';
 import { Photo } from 'models/interfaces';
 import Meta from './meta';
 
+interface MockedHeadProps {
+  children: JSX.Element;
+}
+
+const MockedHead = ({ children }: MockedHeadProps): JSX.Element => <>{children}</>;
+// eslint-disable-next-line react/display-name
+jest.mock('next/head', () => ({ children }: MockedHeadProps) => <MockedHead>{children}</MockedHead>);
+
 describe('Meta tests', (): void => {
   it('should render the component without social media image tags', (): void => {
     const { container } = render(<Meta currentPath="/test" />);
