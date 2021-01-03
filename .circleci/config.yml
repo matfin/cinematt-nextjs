@@ -3,14 +3,14 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: node:12.18-alpine
+      - image: node:15.4-alpine3.10
     steps:
       - run:
           name: Install Git
           command: apk add --update git
       - checkout
       - restore_cache:
-          name: Restore build cache
+          name: Restore Build Cache
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
@@ -26,63 +26,66 @@ jobs:
           name: Run tests with coverage
           command: yarn coverage
       - run:
-          name: Run code lint
+          name: Run code quality checks
           command: yarn lint
-
-  build-push-container:
-    machine: true
-    steps:
-      - checkout
-      - run:
-          name: Log in to Docker Hub
-          command: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
-      - run:
-          name: Build with Docker Compose and production settings
-          command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml build --no-cache
-      - run:
-          name: Push to remote Docker hub
-          command: docker-compose push
 
   deploy:
     docker:
-      - image: cimg/base:2020.01
+      - image: node:15.4-alpine3.10
     steps:
+      - run:
+          name: Install Git
+          command: apk add --update git
+      - run:
+          name: Install OpenSSH (SCP)
+          command: apk add --update openssh
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - "69:f4:84:f0:e9:82:8a:88:4e:f2:94:a2:25:80:f1:cb"
+            - "f7:ae:ac:d6:25:1e:08:0f:9c:95:7e:ef:db:a2:ac:f5"
       - run:
           name: Add key to known_hosts
           command: mkdir -p ~/ssh && ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
+      - restore_cache:
+          name: Restore Build Cache
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
       - run:
-          name: Copy over Docker / Compose files to remote server
-          command: scp -r docker-compose.yml docker-compose.prod.yml .docker/ $DEPLOY_USER@$DEPLOY_HOST:~/
+          name: Install yarn dependencies
+          command: yarn
+      - save_cache:
+          name: Save build cache
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
       - run:
-          name: Remotely pull docker images, refresh, then restart the container
+          name: Next build static deployment
+          command: yarn deploy
+      - run:
+          name: Create archive of built content
+          command: tar czf out.tar.gz out
+      - run:
+          name: Copy archive to remote server
+          command: scp out.tar.gz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_DIR
+      - run:
+          name: Unpack archive on remote server
           command: |
             ssh -t $DEPLOY_USER@$DEPLOY_HOST "
-              docker pull matfin/cinematt-build:latest &&
-              docker pull matfin/cinematt-serve:latest &&
-              docker stop build serve &&
-              docker rm build serve &&
-              docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+              cd $DEPLOY_DIR &&
+              rm -rf out/ &&
+              tar -xvzf out.tar.gz
             "
 
 workflows:
   version: 2
-  build_and_test:
+  test_and_deploy:
     jobs:
       - test:
           filters:
             branches:
               ignore: main
-      - build-push-container:
-          filters:
-            branches:
-              only: main
       - deploy:
-          requires:
-            - build-push-container
           filters:
             branches:
               only: main
