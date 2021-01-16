@@ -13,6 +13,7 @@ export const socialImagePath = ({ public_id, version }: Photo): string =>
   `${resourceBaseUrl}/w_1280/v${version}/${public_id}.jpg`;
 
 const siteVersion: string = process.env.version;
+const siteBase: string = process.env.base;
 
 const Meta = ({ currentPath, titlePhoto }: Props): JSX.Element => (
   <Head>
@@ -31,7 +32,7 @@ const Meta = ({ currentPath, titlePhoto }: Props): JSX.Element => (
     <meta name="author" content="Matt Finucane" />
     <meta name="version" content={siteVersion} />
 
-    <meta property="og:url" content={`https://cinematt.photography${currentPath}`} />
+    <meta property="og:url" content={`${siteBase}${currentPath}`} />
     <meta property="og:site_name" content="cinematt.photography" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en-IE" />
@@ -43,7 +44,7 @@ const Meta = ({ currentPath, titlePhoto }: Props): JSX.Element => (
     <meta name="twitter:site" content="@matfinucane" />
     <meta name="twitter:creator" content="@matfinucane" />
     <meta name="twitter:title" content="Cinematt" />
-    <meta name="twitter:url" content={`https://cinematt.photography${currentPath}`} />
+    <meta name="twitter:url" content={`${siteBase}${currentPath}`} />
     <meta name="twitter:description" content="Personal photography website of Matt Finucane" />
     {titlePhoto && (
       <>
@@ -72,7 +73,7 @@ const Meta = ({ currentPath, titlePhoto }: Props): JSX.Element => (
     <link rel="shortcut icon" href="/favicon.ico" />
 
     <link rel="manifest" href="/manifest.json" />
-    <link rel="canonical" href={`https://cinematt.photography${currentPath}`} />
+    <link rel="canonical" href={`${siteBase}${currentPath}`} />
   </Head>
 );
 

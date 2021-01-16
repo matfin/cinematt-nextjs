@@ -17,6 +17,7 @@ module.exports = {
   ...withMDX,
   rewrites,
   env: {
-    version: process.env.npm_package_version
+    version: process.env.npm_package_version,
+    base: process.env.BASE || 'https://cinematt.photography',
   },
 };

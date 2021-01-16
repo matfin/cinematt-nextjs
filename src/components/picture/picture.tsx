@@ -87,11 +87,13 @@ const Picture = ({ className, isDetail = false, lazyLoad = false, photo }: Props
       <Image
         alt={imgAlt}
         hasLoaded={hasLoaded}
+        height="auto"
         isDetail={isDetail}
         onLoad={onImageLoad}
         orientation={orientation}
         ref={imgRef}
         src={shouldLoad ? imgSrc : null}
+        width="100%"
       />
       {!hasLoaded && shouldLoad && <LoadingStrip />}
     </PictureContainer>
