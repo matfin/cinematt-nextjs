@@ -10,7 +10,12 @@ jest.mock('next/head', () => ({
   // eslint-disable-next-line react/display-name
   default: ({ children }: { children: Array<React.ReactElement> }) => <>{children}</>,
 }));
-jest.mock('next/link', () => ({ children }) => children);
+jest.mock(
+  'next/link',
+  () =>
+    ({ children }) =>
+      children,
+);
 jest.mock('next/router', () => ({
   useRouter: () => ({
     asPath: 'test/path',
@@ -84,19 +89,15 @@ describe('Layout tests', (): void => {
     const { container } = view;
     const button = container.querySelector('button');
 
-    await act(
-      async (): Promise<void> => {
-        fireEvent.click(button);
-      },
-    );
+    await act(async (): Promise<void> => {
+      fireEvent.click(button);
+    });
 
     await expect(document.body.classList).toContain('overflow-lock');
 
-    await act(
-      async (): Promise<void> => {
-        fireEvent.click(button);
-      },
-    );
+    await act(async (): Promise<void> => {
+      fireEvent.click(button);
+    });
     await expect(document.body.classList).not.toContain('overflow-lock');
   });
 
@@ -106,18 +107,14 @@ describe('Layout tests', (): void => {
     const button = container.querySelector('button');
     const title = getByTestId('title');
 
-    await act(
-      async (): Promise<void> => {
-        fireEvent.click(button);
-      },
-    );
+    await act(async (): Promise<void> => {
+      fireEvent.click(button);
+    });
     await expect(document.body.classList).toContain('overflow-lock');
 
-    await act(
-      async (): Promise<void> => {
-        fireEvent.click(title);
-      },
-    );
+    await act(async (): Promise<void> => {
+      fireEvent.click(title);
+    });
     await expect(document.body.classList).not.toContain('overflow-lock');
   });
 });

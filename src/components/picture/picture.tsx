@@ -34,23 +34,21 @@ export const pictureSources = ({ isDetail, photo, shouldLoad }: PictureSourcesPr
   const sourceMediaQueries = isDetail ? detailSourceMediaQueries : tileSourceMediaQueries;
   const { public_id, version } = photo;
 
-  return sourceMediaQueries.map(
-    ({ minWidth, sizes }: PictureSourceSize): JSX.Element => {
-      const srcSetWebP: string = sizes
-        .map((size: number, index: number) => pictureSizePaths('webp', index, photo, size))
-        .join(',');
-      const srcSetJpg: string = sizes
-        .map((size: number, index: number) => pictureSizePaths('jpg', index, photo, size))
-        .join(',');
+  return sourceMediaQueries.map(({ minWidth, sizes }: PictureSourceSize): JSX.Element => {
+    const srcSetWebP: string = sizes
+      .map((size: number, index: number) => pictureSizePaths('webp', index, photo, size))
+      .join(',');
+    const srcSetJpg: string = sizes
+      .map((size: number, index: number) => pictureSizePaths('jpg', index, photo, size))
+      .join(',');
 
-      return (
-        <Fragment key={`${public_id}-${version}-${minWidth}`}>
-          <source media={`(min-width: ${minWidth}px)`} srcSet={shouldLoad ? srcSetWebP : null} type="image/webp" />
-          <source media={`(min-width: ${minWidth}px)`} srcSet={shouldLoad ? srcSetJpg : null} type="image/jpeg" />
-        </Fragment>
-      );
-    },
-  );
+    return (
+      <Fragment key={`${public_id}-${version}-${minWidth}`}>
+        <source media={`(min-width: ${minWidth}px)`} srcSet={shouldLoad ? srcSetWebP : null} type="image/webp" />
+        <source media={`(min-width: ${minWidth}px)`} srcSet={shouldLoad ? srcSetJpg : null} type="image/jpeg" />
+      </Fragment>
+    );
+  });
 };
 
 const Picture = ({ className, isDetail = false, lazyLoad = false, photo }: Props): JSX.Element => {
