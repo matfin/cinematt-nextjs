@@ -28,12 +28,10 @@ describe('MenuButton tests', (): void => {
     const { container } = render(<MenuButton {...defaultProps} onClick={spyOnClick} />);
     const button = container.querySelector('button');
 
-    await act(
-      async (): Promise<void> => {
-        fireEvent.click(button);
-        fireEvent.touchStart(button);
-      },
-    );
+    await act(async (): Promise<void> => {
+      fireEvent.click(button);
+      fireEvent.touchStart(button);
+    });
 
     await expect(spyOnClick).toHaveBeenCalledTimes(1);
   });
@@ -44,12 +42,10 @@ describe('MenuButton tests', (): void => {
     const { container } = render(<MenuButton {...defaultProps} onClick={spyOnClick} />);
     const button = container.querySelector('button');
 
-    await act(
-      async (): Promise<void> => {
-        fireEvent.click(button);
-        fireEvent.touchStart(button);
-      },
-    );
+    await act(async (): Promise<void> => {
+      fireEvent.click(button);
+      fireEvent.touchStart(button);
+    });
 
     await expect(spyOnClick).toHaveBeenCalledTimes(1);
   });

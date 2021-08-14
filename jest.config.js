@@ -28,5 +28,5 @@ module.exports = {
     '^styles/(.*)$': '<rootDir>/src/styles/$1',
     '^(config|styles|testutils|utils)$': '<rootDir>/src/$1',
   },
-  testEnvironment: 'jest-environment-jsdom-sixteen'
+  testEnvironment: 'jsdom'
 };

@@ -29,27 +29,23 @@ const FooterNav = ({ album, className, currentPhoto }: Props): JSX.Element => {
   const goPrev = (): Promise<boolean> => router.push('/albums/[albumName]/[public_id]', backUrl);
   const goNext = (): Promise<boolean> => router.push('/albums/[albumName]/[public_id]', forwardUrl);
 
-  useKeyDown(
-    ({ keyCode }): Promise<boolean> => {
-      switch (keyCode) {
-        case 37:
-          return goPrev();
-        case 39:
-          return goNext();
-      }
-    },
-  );
+  useKeyDown(({ keyCode }): Promise<boolean> => {
+    switch (keyCode) {
+      case 37:
+        return goPrev();
+      case 39:
+        return goNext();
+    }
+  });
 
-  useSwipe(
-    (direction: Direction): Promise<boolean> => {
-      switch (direction) {
-        case Direction.Right:
-          return goPrev();
-        case Direction.Left:
-          return goNext();
-      }
-    },
-  );
+  useSwipe((direction: Direction): Promise<boolean> => {
+    switch (direction) {
+      case Direction.Right:
+        return goPrev();
+      case Direction.Left:
+        return goNext();
+    }
+  });
 
   return (
     <Container className={className}>
