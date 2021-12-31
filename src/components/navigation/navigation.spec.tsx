@@ -1,6 +1,8 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { fireEvent, render } from '@testing-library/react';
+import { useRouter } from 'next/router';
+
 import Navigation, { Props } from './navigation';
 
 jest.mock(
@@ -10,9 +12,7 @@ jest.mock(
       children,
 );
 jest.mock('next/router', () => ({
-  useRouter: () => ({
-    asPath: '/',
-  }),
+  useRouter: jest.fn(),
 }));
 
 const defaultProps: Props = {
@@ -20,7 +20,13 @@ const defaultProps: Props = {
 };
 
 describe('Navigation tests', (): void => {
+  afterEach((): void => {
+    jest.clearAllMocks();
+  });
+
   it('renders the component', (): void => {
+    (useRouter as jest.Mock).mockReturnValue({ asPath: '/' });
+
     const wrapper = render(<Navigation {...defaultProps} />);
     const { container } = wrapper;
     const links = container.querySelectorAll('a');
@@ -30,15 +36,36 @@ describe('Navigation tests', (): void => {
   });
 
   it('executes the callback on navigation', async (): Promise<void> => {
-    const spyOnNavigate = jest.fn();
+    (useRouter as jest.Mock).mockReturnValue({ asPath: '/albums/abandoned' });
 
-    render(<Navigation {...defaultProps} onNavigate={spyOnNavigate} />);
-    const link = document.querySelector('a');
+    const spyOnNavigate = jest.fn();
+    const { getByTestId } = render(<Navigation {...defaultProps} onNavigate={spyOnNavigate} />);
+    const link = getByTestId('abandoned');
 
     act((): void => {
       fireEvent.click(link);
     });
 
     await expect(spyOnNavigate).toHaveBeenCalled();
+  });
+
+  it('renders active links', (): void => {
+    (useRouter as jest.Mock).mockReturnValue({ asPath: '/albums/abandoned' });
+
+    const { getByTestId } = render(<Navigation {...defaultProps} />);
+    const abandonedLink = getByTestId('abandoned');
+    const peopleLink = getByTestId('people');
+
+    expect(abandonedLink.getAttribute('aria-current')).not.toBeNull();
+    expect(peopleLink.getAttribute('aria-current')).toBeNull();
+  });
+
+  it('renders the about link as current', (): void => {
+    (useRouter as jest.Mock).mockReturnValue({ asPath: '/about' });
+
+    const { getByTestId } = render(<Navigation {...defaultProps} />);
+    const aboutLink = getByTestId('about');
+
+    expect(aboutLink.getAttribute('aria-current')).not.toBeNull();
   });
 });

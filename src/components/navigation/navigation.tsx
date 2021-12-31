@@ -17,7 +17,11 @@ const AlbumLinks = (onClick: (e: React.MouseEvent | React.TouchEvent) => void, a
     (albumName: string): JSX.Element => (
       <li key={albumName}>
         <Link as={`/albums/${albumName}`} href="/albums/[albumName]" passHref>
-          <LinkTextSt data-testid={albumName} isActive={routeMatches(`/albums/${albumName}`, asPath)} onClick={onClick}>
+          <LinkTextSt
+            data-testid={albumName}
+            aria-current={routeMatches(`/albums/${albumName}`, asPath) ? 'page' : null}
+            onClick={onClick}
+          >
             {capitalise(albumName)}
           </LinkTextSt>
         </Link>
@@ -34,7 +38,7 @@ const Navigation = ({ className, onNavigate }: Props): JSX.Element => {
       <NavItemList>
         <li>
           <Link href="/" passHref>
-            <LinkTextSt onClick={onNavigate} isActive={asPath === '/'}>
+            <LinkTextSt onClick={onNavigate} aria-current={asPath === '/' ? 'page' : null}>
               Featured
             </LinkTextSt>
           </Link>
@@ -42,7 +46,7 @@ const Navigation = ({ className, onNavigate }: Props): JSX.Element => {
         {AlbumLinks(onNavigate, asPath)}
         <li>
           <Link href="/about" passHref>
-            <LinkTextSt isActive={asPath === '/about'} onClick={onNavigate}>
+            <LinkTextSt data-testid="about" aria-current={asPath === '/about' ? 'page' : null} onClick={onNavigate}>
               About
             </LinkTextSt>
           </Link>

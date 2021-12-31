@@ -1,6 +1,6 @@
 {
   "name": "cinematt",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "Personal photography website rebuilt using NextJS",
   "main": "index.js",
   "scripts": {

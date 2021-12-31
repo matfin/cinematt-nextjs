@@ -1,10 +1,6 @@
 import styled, { css } from 'styled-components';
 import { animationCurve, colours, media, text } from 'styles';
 
-interface LinkTextProps {
-  isActive: boolean;
-}
-
 export const Nav = styled.nav`
   display: grid;
   grid-template-rows: 4rem auto;
@@ -15,7 +11,7 @@ export const Nav = styled.nav`
   `)}
 `;
 
-export const LinkTextSt = styled.a<LinkTextProps>`
+export const LinkTextSt = styled.a`
   position: relative;
 
   &::after {
@@ -27,12 +23,12 @@ export const LinkTextSt = styled.a<LinkTextProps>`
     background: ${colours.primary};
     content: '';
     transition: width 350ms ${animationCurve};
+  }
 
-    ${({ isActive }: LinkTextProps) =>
-      isActive &&
-      css`
-        width: 100%;
-      `}
+  &[aria-current] {
+    &::after {
+      width: 100%;
+    }
   }
 
   &:hover {
