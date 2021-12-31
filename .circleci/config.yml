@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: node:15.4-alpine3.10
+      - image: node:16.13.1-alpine3.14
     steps:
       - run:
           name: Install Git
@@ -31,7 +31,7 @@ jobs:
 
   deploy:
     docker:
-      - image: node:15.4-alpine3.10
+      - image: node:16.13.1-alpine3.14
     steps:
       - run:
           name: Install Git
