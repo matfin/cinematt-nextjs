@@ -1,7 +1,8 @@
-const withMDX = require('@next/mdx')({
-  extension: /\.mdx?$/
-})({
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx']
+const nextMDX = require('@next/mdx');
+
+const withMDX = nextMDX({
+  extension: /\.mdx?$/,
+  options: { providerImportSource: '@mdx-js/react' },
 });
 
 const rewrites = async () => {
@@ -9,12 +10,14 @@ const rewrites = async () => {
     {
       source: '/sitemap.xml',
       destination: '/api/sitemap',
-    }
+    },
   ];
 };
 
 module.exports = {
-  ...withMDX,
+  ...withMDX({
+    pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx']
+  }),
   rewrites,
   env: {
     version: process.env.npm_package_version,

@@ -1,6 +1,5 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import { useRouter } from 'next/router';
 
 import Navigation, { Props } from './navigation';
@@ -42,11 +41,11 @@ describe('Navigation tests', (): void => {
     const { getByTestId } = render(<Navigation {...defaultProps} onNavigate={spyOnNavigate} />);
     const link = getByTestId('abandoned');
 
-    act((): void => {
-      fireEvent.click(link);
-    });
+    fireEvent.click(link);
 
-    await expect(spyOnNavigate).toHaveBeenCalled();
+    await waitFor((): void => {
+      expect(spyOnNavigate).toHaveBeenCalled();
+    });
   });
 
   it('renders active links', (): void => {
