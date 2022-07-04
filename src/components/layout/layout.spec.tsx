@@ -1,21 +1,26 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import { Photo } from 'models/interfaces';
 import { Orientation } from 'models/types';
 import Layout from './layout';
-import { act } from 'react-dom/test-utils';
 
 jest.mock('next/head', () => ({
   __esModule: true,
   // eslint-disable-next-line react/display-name
-  default: ({ children }: { children: Array<React.ReactElement> }) => <>{children}</>,
+  default: ({ children }: { children: React.ReactNode }) => <>{children}</>,
 }));
+
+jest.mock('@mdx-js/react', () => ({
+  MDXProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+}));
+
 jest.mock(
   'next/link',
   () =>
-    ({ children }) =>
+    ({ children }: { children: React.ReactNode }) =>
       children,
 );
+
 jest.mock('next/router', () => ({
   useRouter: () => ({
     asPath: 'test/path',
@@ -89,16 +94,17 @@ describe('Layout tests', (): void => {
     const { container } = view;
     const button = container.querySelector('button');
 
-    await act(async (): Promise<void> => {
-      fireEvent.click(button);
+    fireEvent.click(button);
+
+    await waitFor((): void => {
+      expect(document.body.classList).toContain('overflow-lock');
     });
 
-    await expect(document.body.classList).toContain('overflow-lock');
+    fireEvent.click(button);
 
-    await act(async (): Promise<void> => {
-      fireEvent.click(button);
+    await waitFor((): void => {
+      expect(document.body.classList).not.toContain('overflow-lock');
     });
-    await expect(document.body.classList).not.toContain('overflow-lock');
   });
 
   it('dismisses navigation on title click', async (): Promise<void> => {
@@ -107,14 +113,16 @@ describe('Layout tests', (): void => {
     const button = container.querySelector('button');
     const title = getByTestId('title');
 
-    await act(async (): Promise<void> => {
-      fireEvent.click(button);
-    });
-    await expect(document.body.classList).toContain('overflow-lock');
+    fireEvent.click(button);
 
-    await act(async (): Promise<void> => {
-      fireEvent.click(title);
+    await waitFor((): void => {
+      expect(document.body.classList).toContain('overflow-lock');
     });
-    await expect(document.body.classList).not.toContain('overflow-lock');
+
+    fireEvent.click(title);
+
+    await waitFor((): void => {
+      expect(document.body.classList).not.toContain('overflow-lock');
+    });
   });
 });

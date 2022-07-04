@@ -3,7 +3,7 @@ import { sitemapBaseUrl } from 'config';
 import { SitemapEntry } from 'models/interfaces';
 import { getSitemapRoutes } from 'lib/sitemap';
 
-const sitemap = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
+const sitemap = async (req: NextApiRequest, res: NextApiResponse): Promise<NextApiResponse<unknown>> => {
   const aboutPage: SitemapEntry = {
     loc: 'about',
     lastmod: '2020-09-09T17:46:00Z',

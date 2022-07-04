@@ -1,12 +1,11 @@
+import { useRouter } from 'next/router';
+import React from 'react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
+import Header, { Props } from './header';
+
 jest.mock('next/router', (): { useRouter: jest.Mock } => ({
   useRouter: jest.fn(),
 }));
-
-import { useRouter } from 'next/router';
-import React from 'react';
-import { act } from 'react-dom/test-utils';
-import { fireEvent, render } from '@testing-library/react';
-import Header, { Props } from './header';
 
 describe('Header tests', (): void => {
   const defaultProps: Props = {
@@ -15,8 +14,8 @@ describe('Header tests', (): void => {
     onTitleClick: jest.fn(),
   };
 
-  beforeEach(() => {
-    useRouter.mockImplementation(() => ({
+  beforeEach((): void => {
+    (useRouter as jest.Mock).mockImplementation(() => ({
       query: {
         albumName: 'test-slug-ahee',
       },
@@ -40,15 +39,15 @@ describe('Header tests', (): void => {
     const { container } = render(<Header {...defaultProps} onMenuButtonClick={spyOnMenuButtonClick} />);
     const button = container.querySelector('button');
 
-    act((): void => {
-      fireEvent.click(button);
-    });
+    fireEvent.click(button);
 
-    await expect(spyOnMenuButtonClick).toHaveBeenCalled();
+    await waitFor((): void => {
+      expect(spyOnMenuButtonClick).toHaveBeenCalled();
+    });
   });
 
   it('renders the website title', (): void => {
-    useRouter.mockImplementation(() => ({
+    (useRouter as jest.Mock).mockImplementation(() => ({
       query: {
         public_id: 'test-publicId',
         albumName: 'test-slug',

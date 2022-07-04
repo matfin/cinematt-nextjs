@@ -1,6 +1,6 @@
 import React from 'react';
 import 'jest-styled-components';
-import { act, fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import { Orientation } from 'models/types';
 import { intersectionObserverMock } from 'testutils';
 import Picture, { altText, Props } from './picture';
@@ -55,17 +55,17 @@ describe('Picture tests', () => {
     const sources = container.querySelectorAll('source');
     const expectedSizes: number[] = [960, 960, 1024, 1024, 680, 680, 576, 576, 448, 448, 724, 724, 560, 560, 320, 320];
 
-    act((): void => {
-      fireEvent.load(image);
-    });
+    fireEvent.load(image);
 
-    expect(image.src).toContain('v456/123.jpg');
-    expect(sources).toHaveLength(16);
-    expect(image).toHaveStyleRule('opacity', '1');
+    await waitFor((): void => {
+      expect(image.src).toContain('v456/123.jpg');
+      expect(sources).toHaveLength(16);
+      expect(image).toHaveStyleRule('opacity', '1');
 
-    sources.forEach((source: HTMLSourceElement, index: number): void => {
-      expect(source.srcset).toContain(`w_${expectedSizes[index]}`);
-      expect(source.srcset).toContain('v456/123');
+      sources.forEach((source: HTMLSourceElement, index: number): void => {
+        expect(source.srcset).toContain(`w_${expectedSizes[index]}`);
+        expect(source.srcset).toContain('v456/123');
+      });
     });
   });
 

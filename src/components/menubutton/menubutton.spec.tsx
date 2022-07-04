@@ -1,6 +1,5 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import * as utils from 'utils';
 import MenuButton, { Props } from './menubutton';
 
@@ -28,25 +27,26 @@ describe('MenuButton tests', (): void => {
     const { container } = render(<MenuButton {...defaultProps} onClick={spyOnClick} />);
     const button = container.querySelector('button');
 
-    await act(async (): Promise<void> => {
-      fireEvent.click(button);
-      fireEvent.touchStart(button);
-    });
+    fireEvent.click(button);
+    fireEvent.touchStart(button);
 
-    await expect(spyOnClick).toHaveBeenCalledTimes(1);
+    await waitFor((): void => {
+      expect(spyOnClick).toHaveBeenCalledTimes(1);
+    });
   });
 
   it('executes the callback on touch', async (): Promise<void> => {
     spyShouldUseTouch.mockReturnValue(true);
+
     const spyOnClick = jest.fn();
     const { container } = render(<MenuButton {...defaultProps} onClick={spyOnClick} />);
     const button = container.querySelector('button');
 
-    await act(async (): Promise<void> => {
-      fireEvent.click(button);
-      fireEvent.touchStart(button);
-    });
+    fireEvent.click(button);
+    fireEvent.touchStart(button);
 
-    await expect(spyOnClick).toHaveBeenCalledTimes(1);
+    await waitFor((): void => {
+      expect(spyOnClick).toHaveBeenCalledTimes(1);
+    });
   });
 });

@@ -7,7 +7,7 @@ import Meta from 'components/meta/meta';
 import { Container, LayoutHeader, Main, Nav } from './layout.css';
 
 export interface Props {
-  children?: JSX.Element | JSX.Element[];
+  children?: React.ReactNode;
   titlePhoto?: Photo;
 }
 

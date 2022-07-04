@@ -15,6 +15,7 @@ export const Title = styled.h1`
   font-weight: ${fontWeights.light};
   line-height: ${dimensions.navigationHeight}rem;
   margin-left: 1rem;
+  cursor: pointer;
 `;
 
 export const Button = styled(MenuButton)`
