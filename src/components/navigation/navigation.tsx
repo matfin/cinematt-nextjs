@@ -16,7 +16,7 @@ const AlbumLinks = (onClick: (e: React.MouseEvent | React.TouchEvent) => void, a
   albums.map(
     (albumName: string): JSX.Element => (
       <li key={albumName}>
-        <Link as={`/albums/${albumName}`} href="/albums/[albumName]" passHref>
+        <Link as={`/albums/${albumName}`} href="/albums/[albumName]" passHref legacyBehavior>
           <LinkTextSt
             data-testid={albumName}
             aria-current={routeMatches(`/albums/${albumName}`, asPath) ? 'page' : null}
@@ -37,7 +37,7 @@ const Navigation = ({ className, onNavigate }: Props): JSX.Element => {
     <Nav className={className}>
       <NavItemList>
         <li>
-          <Link href="/" passHref>
+          <Link href="/" passHref legacyBehavior>
             <LinkTextSt onClick={onNavigate} aria-current={asPath === '/' ? 'page' : null}>
               Featured
             </LinkTextSt>
@@ -45,7 +45,7 @@ const Navigation = ({ className, onNavigate }: Props): JSX.Element => {
         </li>
         {AlbumLinks(onNavigate, asPath)}
         <li>
-          <Link href="/about" passHref>
+          <Link href="/about" passHref legacyBehavior>
             <LinkTextSt data-testid="about" aria-current={asPath === '/about' ? 'page' : null} onClick={onNavigate}>
               About
             </LinkTextSt>

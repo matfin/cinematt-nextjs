@@ -11,7 +11,7 @@ export interface Props {
 
 const Gallery = ({ className, photos }: Props): JSX.Element => (
   <Container className={className}>
-    {photos.map((photo: Photo) => {
+    {photos.map((photo: Photo): JSX.Element => {
       const { public_id, orientation, tags, version } = photo;
       const isProminent: boolean = tags.includes('prominent');
 
@@ -21,6 +21,7 @@ const Gallery = ({ className, photos }: Props): JSX.Element => (
           href="/albums/[albumName]/[public_id]"
           key={`${public_id}-${version}`}
           passHref
+          legacyBehavior
         >
           <LinkSt isProminent={isProminent} orientation={orientation}>
             <Picture lazyLoad photo={photo} />
