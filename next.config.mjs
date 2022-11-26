@@ -1,4 +1,4 @@
-const nextMDX = require('@next/mdx');
+import nextMDX from '@next/mdx';
 
 const withMDX = nextMDX({
   extension: /\.mdx?$/,
@@ -14,13 +14,21 @@ const rewrites = async () => {
   ];
 };
 
-module.exports = {
+/**
+ * @type {import('next').NextConfig}
+ */
+const nextConfig = {
   ...withMDX({
-    pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx']
+    pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   }),
   rewrites,
   env: {
     version: process.env.npm_package_version,
     base: process.env.BASE || 'https://cinematt.photography',
   },
+  compiler: {
+    styledComponents: true,
+  },
 };
+
+export default nextConfig;
