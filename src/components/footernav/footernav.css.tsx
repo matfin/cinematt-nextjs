@@ -1,15 +1,7 @@
 import styled, { css } from 'styled-components';
 import { media, text } from 'styles';
+import Link from 'next/link';
 import { GridIcon } from 'components/icons';
-
-const buttonStyle = `
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 4rem;
-  height: 4rem;
-  font-size: 2rem;
-`;
 
 export const Container = styled.footer`
   display: flex;
@@ -26,20 +18,13 @@ export const Navigation = styled.div`
   align-items: center;
 `;
 
-export const Back = styled.a`
-  ${buttonStyle}
-
-  &::before {
-    content: '<';
-  }
-`;
-
-export const Forward = styled.a`
-  ${buttonStyle}
-
-  &::after {
-    content: '>';
-  }
+export const ArrowButton = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  font-size: 2rem;
 `;
 
 export const Details = styled.span`
@@ -51,7 +36,7 @@ export const Grid = styled(GridIcon)`
   height: 2rem;
 `;
 
-export const GridLink = styled.a`
+export const GridLink = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;

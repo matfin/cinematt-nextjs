@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { dimensions, fontSizes, fontWeights } from 'styles';
+import Link from 'next/link';
 import MenuButton from '../menubutton/menubutton';
 
 export const Container = styled.header`
@@ -36,7 +37,7 @@ export const BackButton = styled.span`
   }
 `;
 
-export const BackLink = styled.a`
+export const BackLink = styled(Link)`
   display: flex;
   align-items: center;
   overflow: hidden;

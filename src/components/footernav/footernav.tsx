@@ -1,11 +1,10 @@
 import React from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Album, Photo } from 'models/interfaces';
-import { Direction } from 'models/types';
+import { Arrows, ArrowKeys, Direction } from 'models/types';
 import useKeyDown from 'hooks/useKeyDown';
 import useSwipe from 'hooks/useSwipe';
-import { Back, Container, Details, Forward, Grid, GridLink, Navigation } from './footernav.css';
+import { ArrowButton, Container, Details, Grid, GridLink, Navigation } from './footernav.css';
 
 export interface Props {
   album: Album;
@@ -29,11 +28,11 @@ const FooterNav = ({ album, className, currentPhoto }: Props): JSX.Element => {
   const goPrev = (): Promise<boolean> => router.push('/albums/[albumName]/[public_id]', backUrl);
   const goNext = (): Promise<boolean> => router.push('/albums/[albumName]/[public_id]', forwardUrl);
 
-  useKeyDown(({ keyCode }): Promise<boolean> => {
-    switch (keyCode) {
-      case 37:
+  useKeyDown(({ code }): Promise<boolean> => {
+    switch (code) {
+      case ArrowKeys.LEFT:
         return goPrev();
-      case 39:
+      case ArrowKeys.RIGHT:
         return goNext();
     }
   });
@@ -50,21 +49,17 @@ const FooterNav = ({ album, className, currentPhoto }: Props): JSX.Element => {
   return (
     <Container className={className}>
       <Navigation>
-        <Link as={backUrl} href="/albums/[albumName]/[public_id]" passHref>
-          <Back />
-        </Link>
+        <ArrowButton href={backUrl}>{Arrows.Back}</ArrowButton>
         <Details>
           {currentIndex + 1} of {photoCount}
         </Details>
-        <Link as={forwardUrl} href="/albums/[albumName]/[public_id]" passHref>
-          <Forward />
-        </Link>
+        <ArrowButton href={forwardUrl}>{Arrows.Forward}</ArrowButton>
       </Navigation>
-      <Link as={`/albums/${name}`} href="/albums/[albumName]" passHref>
-        <GridLink>
+      <GridLink href={`/albums/${name}`}>
+        <>
           <Grid />
-        </GridLink>
-      </Link>
+        </>
+      </GridLink>
     </Container>
   );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { render, fireEvent } from '@testing-library/react';
 import { Photo } from 'models/interfaces';
-import { Orientation, Direction } from 'models/types';
+import { Orientation, Direction, ArrowKeys } from 'models/types';
 import { swipe } from 'testutils';
 import FooterNav, { Props } from './footernav';
 
@@ -61,7 +61,7 @@ describe('Footer nav', (): void => {
   const spyPush = jest.fn();
 
   beforeEach((): void => {
-    useRouter.mockImplementation(() => ({
+    (useRouter as jest.Mock).mockImplementation(() => ({
       push: spyPush,
     }));
   });
@@ -106,14 +106,17 @@ describe('Footer nav', (): void => {
     expect(container.querySelectorAll('a')[1].href).toContain('/albums/test/test-photo-two');
   });
 
-  it('advances to the next and previous photos on key press', (): void => {
+  it('advances to the next and previous photos on key press', async (): Promise<void> => {
     render(<FooterNav {...defaultProps} />);
 
-    fireEvent.keyDown(window, { keyCode: 37 });
-    expect(spyPush).toHaveBeenCalledWith('/albums/[albumName]/[public_id]', '/albums/test/test-photo-one');
+    fireEvent.keyDown(window, { code: ArrowKeys.LEFT });
+    await expect(spyPush).toHaveBeenCalledWith('/albums/[albumName]/[public_id]', '/albums/test/test-photo-one');
 
-    fireEvent.keyDown(window, { keyCode: 39 });
-    expect(spyPush).toHaveBeenCalledWith('/albums/[albumName]/[public_id]', '/albums/test/test-photo-three');
+    fireEvent.keyDown(window, { code: ArrowKeys.RIGHT });
+    await expect(spyPush).toHaveBeenCalledWith('/albums/[albumName]/[public_id]', '/albums/test/test-photo-three');
+
+    fireEvent.keyDown(window, { code: ArrowKeys.DOWN });
+    await expect(spyPush).toHaveBeenCalledTimes(2);
   });
 
   it('advances to the next and previous photos on swipe', (): void => {
