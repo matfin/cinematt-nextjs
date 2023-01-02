@@ -123,17 +123,6 @@
       "tags": ["featured", "prominent", "title"]
     },
     {
-      "name": "photoshoot-leah",
-      "album": "people",
-      "public_id": "people/photoshoot-leah",
-      "format": "tiff",
-      "version": 1539716419,
-      "created_at": "2018-10-16T19:00:19Z",
-      "width": 2560,
-      "height": 1440,
-      "tags": ["featured", "prominent"]
-    },
-    {
       "name": "minature-path",
       "album": "experimental",
       "public_id": "experimental/minature-path",
