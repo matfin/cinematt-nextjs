@@ -46,7 +46,7 @@ describe('Header tests', (): void => {
     });
   });
 
-  it('renders the website title', (): void => {
+  it('renders the back button', (): void => {
     (useRouter as jest.Mock).mockImplementation(() => ({
       query: {
         public_id: 'test-publicId',
@@ -57,6 +57,6 @@ describe('Header tests', (): void => {
     const { container } = render(<Header {...defaultProps} />);
 
     expect(container.querySelector('h1')).toBeFalsy();
-    expect(container.querySelector('a')).toBeTruthy();
+    expect(container.querySelector('button')).toBeTruthy();
   });
 });

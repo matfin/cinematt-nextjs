@@ -48,3 +48,15 @@ export enum Direction {
   Right = 'right',
   Up = 'up',
 }
+
+export enum ArrowKeys {
+  LEFT = 'ArrowLeft',
+  RIGHT = 'ArrowRight',
+  UP = 'ArrowUp',
+  DOWN = 'ArrowDown',
+}
+
+export enum Arrows {
+  Back = '<',
+  Forward = '>',
+}
