@@ -1,0 +1,35 @@
+{
+  "name": "sausages",
+  "album": "experimental",
+  "public_id": "experimental/sausages",
+  "format": "jpg",
+  "version": 1680645735,
+  "created_at": "2023-04-04T22:02:15Z",
+  "width": 6176,
+  "height": 4273,
+  "tags": [],
+  "colors": [
+    { "code": "#4EA2CE", "weight": 63.8 },
+    { "code": "#C6CACD", "weight": 14.5 },
+    { "code": "#C1C2C5", "weight": 5.9 },
+    { "code": "#858381", "weight": 1.9 },
+    { "code": "#051E2A", "weight": 1.9 },
+    { "code": "#185D81", "weight": 1.3 },
+    { "code": "#812B09", "weight": 1.2 },
+    { "code": "#361003", "weight": 1.2 },
+    { "code": "#C8C3BF", "weight": 0.9 },
+    { "code": "#C0855B", "weight": 0.9 },
+    { "code": "#C5C7C6", "weight": 0.8 },
+    { "code": "#9D9EA0", "weight": 0.8 }
+  ],
+  "image_metadata": {
+    "Copyright": "",
+    "PhotoshopQuality": "12",
+    "PhotoshopFormat": "Progressive",
+    "ProgressiveScans": "3 Scans",
+    "IPTCDigest": "00000000000000000000000000000000",
+    "ProfileDescription": "sRGB IEC61966-2.1",
+    "Colorspace": "RGB",
+    "DPI": "0"
+  }
+}

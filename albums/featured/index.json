@@ -24,6 +24,17 @@
       "tags": ["featured", "prominent"]
     },
     {
+      "name": "kadewe-escalator",
+      "album": "city",
+      "public_id": "city/kadewe-escalator",
+      "format": "tiff",
+      "version": 1680472920,
+      "created_at": "2023-04-02T22:02:00Z",
+      "width": 2560,
+      "height": 1709,
+      "tags": ["prominent"]
+    },
+    {
       "name": "double-bass",
       "album": "music",
       "public_id": "music/double-bass",
@@ -230,7 +241,7 @@
       "created_at": "2017-06-09T10:44:05Z",
       "width": 2560,
       "height": 1440,
-      "tags": ["featured", "prominent", "title"]
+      "tags": ["featured", "title"]
     },
     {
       "name": "stina",
@@ -263,7 +274,7 @@
       "created_at": "2017-06-09T10:40:48Z",
       "width": 2174,
       "height": 1440,
-      "tags": ["featured", "prominent", "title"]
+      "tags": ["featured", "title"]
     },
     {
       "name": "lakes-killarney",
@@ -274,7 +285,7 @@
       "created_at": "2017-06-09T10:38:53Z",
       "width": 2560,
       "height": 1440,
-      "tags": ["featured", "prominent"]
+      "tags": ["featured"]
     },
     {
       "name": "lake",
@@ -329,7 +340,7 @@
       "created_at": "2017-06-09T10:34:38Z",
       "width": 2174,
       "height": 1440,
-      "tags": ["featured", "prominent"]
+      "tags": ["featured"]
     },
     {
       "name": "building-pattern",
@@ -395,7 +406,7 @@
       "created_at": "2017-06-09T09:23:11Z",
       "width": 2560,
       "height": 1440,
-      "tags": ["featured", "prominent", "title"]
+      "tags": ["featured", "title"]
     },
     {
       "name": "hohenschenhausen-cell",
@@ -428,7 +439,7 @@
       "created_at": "2017-06-09T09:21:17Z",
       "width": 2560,
       "height": 1440,
-      "tags": ["featured", "prominent", "title"]
+      "tags": ["featured", "title"]
     }
   ]
 }

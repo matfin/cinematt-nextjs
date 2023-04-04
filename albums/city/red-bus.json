@@ -1,0 +1,23 @@
+{
+  "name": "red-bus",
+  "album": "city",
+  "public_id": "city/red-bus",
+  "format": "jpg",
+  "version": 1680643993,
+  "created_at": "2023-04-04T21:33:13Z",
+  "width": 7360,
+  "height": 4912,
+  "tags": [],
+  "colors": [
+    { "code": "#41251D", "weight": 21.5 },
+    { "code": "#700708", "weight": 16.4 },
+    { "code": "#7C443F", "weight": 14.4 },
+    { "code": "#400907", "weight": 14.1 },
+    { "code": "#796C66", "weight": 11.2 },
+    { "code": "#6F4C41", "weight": 8.8 },
+    { "code": "#30291B", "weight": 5.7 },
+    { "code": "#3B3532", "weight": 2.1 },
+    { "code": "#C1B6B1", "weight": 1.8 }
+  ],
+  "image_metadata": { "ProfileDescription": "sRGB IEC61966-2.1", "Colorspace": "RGB", "DPI": "0" }
+}
